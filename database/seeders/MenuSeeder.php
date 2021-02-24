@@ -19,7 +19,7 @@ class MenuSeeder extends Seeder
         $menu2 = Menu::firstOrCreate([
             'nombre' => 'Sistema',
             'enlace' => '/sistema',
-            'imagen' => 'fab fa-windows'
+            'imagen' => 'fab fa-windows',
             'orden' => 1,
         ]);
 
