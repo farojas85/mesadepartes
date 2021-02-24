@@ -13,14 +13,14 @@ class MenuSeeder extends Seeder
         $menu1 = Menu::firstOrCreate([
             'nombre' => 'Inicio',
             'enlace' => '/home',
-            'imagen' => 'fas fa-home'
+            'imagen' => 'fas fa-home',
         ]);
 
         $menu2 = Menu::firstOrCreate([
             'nombre' => 'Sistema',
             'enlace' => '/sistema',
             'imagen' => 'fab fa-windows'
-            'order' => 1,
+            'orden' => 1,
         ]);
 
         $menu3 = Menu::firstOrCreate([
