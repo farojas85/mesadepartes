@@ -12,20 +12,20 @@ class MenuSeeder extends Seeder
     {
         $menu1 = Menu::firstOrCreate([
             'nombre' => 'Inicio',
-            'enlace' => '/home',
+            'enlace' => 'home',
             'imagen' => 'fas fa-home',
         ]);
 
         $menu2 = Menu::firstOrCreate([
             'nombre' => 'Sistema',
-            'enlace' => '/sistema',
+            'enlace' => 'sistema',
             'imagen' => 'fab fa-windows',
             'orden' => 1,
         ]);
 
         $menu3 = Menu::firstOrCreate([
             'nombre' => 'Configuración',
-            'enlace' => '/configuracion',
+            'enlace' => 'configuracion',
             'imagen' => 'fas fa-cogs',
             'orden' => 2
         ]);
