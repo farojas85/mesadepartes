@@ -24,6 +24,7 @@ function cambiarPaginaUsuario(pagina)
         }
     });
 }
+
 function mostrarFiltroUsuario(filtro)
 {
     switch(filtro)
@@ -194,6 +195,151 @@ function guardarUsuario(event)
                         .append('<small class="text-danger error-mensaje">' + value + '</small>');
                 });
             }
+        }
+    })
+}
+
+function editarUsuario(usuario)
+{
+    $.ajax({
+        url:'usuarios/'+usuario+'/edit',
+        dataType:'html',
+        success: function(respuesta){
+            estadoCrud = 'editar';
+            $('#modal-xl-title').html('Nuevo Usuario');
+            $('#modal-xl-body').html(respuesta)
+            $('#modal-xl').modal('show')
+        }
+    })
+}
+
+function mostrarUsuario(usuario)
+{
+    $.ajax({
+        url:'usuarios/'+usuario,
+        dataType:'html',
+        success: function(respuesta){
+            estadoCrud = 'mostrar';
+            $('#modal-xl-title').html('Mostrar Usuario');
+            $('#modal-xl-body').html(respuesta)
+            $('#modal-xl').modal('show')
+        }
+    })
+}
+
+function eliminarUsuario(usuario) {
+
+    Swal.fire({
+        title: 'Eliminar Usuario',
+        text: '¿Seguro de Eliminar El Registro? No podrá revertirlo',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText:"<i class='fas fa-trash-alt'></i> A Papelera",
+        confirmButtonColor:"#6610f2",
+        cancelButtonText:"<i class='fas fa-eraser'></i> Permanentemente",
+        cancelButtonColor:"#e3342f"
+    }).then((respuesta) => {
+        if(respuesta.value) {
+            eliminarTemporalUsuario(usuario)
+        }
+        else if( respuesta.dismiss === swal.DismissReason.cancel) {
+            this.eliminarPermanenteUsuario(usuario)
+        }
+    })
+}
+
+function eliminarTemporalUsuario(usuario)
+{
+    $.ajax({
+        url:'usuarios-delete/'+usuario,
+        method:'POST',
+        data:{
+            _token:csrf_token
+        },
+        success: function(respuesta){
+            if(respuesta.ok ==1)
+            {
+
+                Swal.fire({
+                    title: 'Usuario',
+                    text: respuesta.mensaje,
+                    icon: 'success',
+                    confirmButtonText: 'Aceptar'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        cambiarVista('usuarios')
+                    }
+                })
+            }
+        }
+    })
+}
+
+function eliminarPermanenteUsuario(usuario)
+{
+    $.ajax({
+        url:'usuarios/'+usuario,
+        method:'DELETE',
+        data:{
+            _token:csrf_token
+        },
+        success: function(respuesta){
+            if(respuesta.ok ==1)
+            {
+
+                Swal.fire({
+                    title: 'Usuarios',
+                    text: respuesta.mensaje,
+                    icon: 'success',
+                    confirmButtonText: 'Aceptar'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        cambiarVista('usuarios')
+                    }
+                })
+            }
+        }
+    })
+}
+
+function restaurarUsuario(usuario)
+{
+    swal.fire({
+        title:"Usuarios",
+        text:'¿Está Seguro de Restaurar el Usuario?"',
+        icon:"question",
+        showCancelButton: true,
+        confirmButtonText:"Si",
+        confirmButtonColor:"#28a745",
+        cancelButtonText:"No",
+        cancelButtonColor:"#dc3545"
+    }).then( (response) => {
+        if(response.value) {
+
+            $.ajax({
+                url:'usuarios-restaurar',
+                method:'POST',
+                data:{
+                    id: usuario,
+                    _token:csrf_token
+                },
+                success: function(respuesta){
+                    if(respuesta.ok ==1)
+                    {
+
+                        Swal.fire({
+                            title: 'Usuarios',
+                            text: respuesta.mensaje,
+                            icon: 'success',
+                            confirmButtonText: 'Aceptar'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                cambiarVista('usuarios')
+                            }
+                        })
+                    }
+                }
+            })
         }
     })
 }

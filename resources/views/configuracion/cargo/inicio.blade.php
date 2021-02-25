@@ -3,10 +3,10 @@
         <div class="card card-outline card-info">
             <div class="card-header ">
                 <h3 class="card-title">
-                    Listado Roles&nbsp;
+                    Listado Cargos&nbsp;
                     <button type="button" class="btn bg-maroon btn-sm rounded-pill"
-                        onclick="nuevoRol()">
-                        <i class="fas fa-plus"></i> Nuevo Rol
+                        onclick="nuevoCargo()">
+                        <i class="fas fa-plus"></i> Nuevo Cargo
                     </button>
                 </h3>
             </div>
@@ -24,8 +24,8 @@
                                     <option value="100">100</option>
                                 </select>
                             </div>&nbsp;
-                            <select  class="form-control form-control-sm" onchange="mostrarFiltroRole(this.value)"
-                                id="filtro-role">
+                            <select  class="form-control form-control-sm" onchange="mostrarFiltroCargo(this.value)"
+                                id="filtro-cargo">
                                 <option value="">-Filtro-</option>
                                 <option value="todos">Todos</option>
                                 <option value="habilitados">habilitados</option>
@@ -34,7 +34,7 @@
                             </select>
                             &nbsp;
                             <input type="text" name="table-search" id="table-search"
-                                class="form-control"  placeholder="Buscar..." onkeyup="buscarRole(this.value)">
+                                class="form-control"  placeholder="Buscar..." onkeyup="buscarCargo(this.value)">
                             <div class="input-group-append">
                                 <button type="button" class="btn btn-info">
                                     <i class="fas fa-search"></i>
@@ -50,34 +50,32 @@
                                 <thead class="bg-navy">
                                     <tr>
                                         <th class="text-center">#</th>
-                                        <th class="text-center">Nombre</th>
-                                        <th class="text-center">Directriz</th>
+                                        <th class="text-center">Nombres</th>
                                         <th class="text-center">Estado</th>
                                         <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse ($roles as $role)
+                                    @forelse ($cargos as $cargo)
                                     <tr>
-                                        <td class="text-center">{{  $loop->iteration-1 +$roles->firstItem() }}</td>
-                                        <td> {{ $role->nombre }}</td>
-                                        <td> {{ $role->directriz }}</td>
+                                        <td class="text-center">{{  $loop->iteration-1 +$cargos->firstItem() }}</td>
+                                        <td> {{ $cargo->nombre }}</td>
                                         <td class="text-center">
-                                            <span class="{{ $role->clase_estado }}">{{ $role->nombre_estado }}</span>
+                                            <span class="{{ $cargo->clase_estado }}">{{ $cargo->nombre_estado }}</span>
                                         </td>
                                         <td>
-                                            @if($role->deleted_at == null)
-                                            <button type="button" class="btn btn-warning btn-xs btn-editar-role"
-                                                onclick="editarRole({{ $role->id }})">
+                                            @if($cargo->deleted_at == null)
+                                            <button type="button" class="btn btn-warning btn-xs btn-editar-cargo"
+                                                onclick="editarCargo({{ $cargo->id }})">
                                                 <i class="fas fa-edit"></i>
                                             </button>
-                                            <button type="button" class="btn btn-danger btn-xs btn-eliminar-role"
-                                                onclick="eliminarRole({{ $role->id }})" title="Eliminar Role">
+                                            <button type="button" class="btn btn-danger btn-xs btn-eliminar-cargo"
+                                                onclick="eliminarCargo({{ $cargo->id }})" title="Eliminar Cargo">
                                                 <i class="fas fa-trash"></i>
                                             </button>
                                             @else
-                                            <button type="button" class="btn bg-purple btn-xs btn-restaurar-role"
-                                                onclick="restaurarRole({{ $role->id }})" title="Restaurar Role">
+                                            <button type="button" class="btn bg-purple btn-xs btn-restaurar-cargo"
+                                                onclick="restaurarCargo({{ $cargo->id }})" title="Restaurar Cargo">
                                                 <i class="fas fa-trash-restore-alt"></i>
                                             </button>
                                             @endif
@@ -96,16 +94,16 @@
                     </div>
                     <div class="col-md-12">
                         <ul class="pagination">
-                            @if($roles->currentPage() > 1)
+                            @if($cargos->currentPage() > 1)
                             <li class="page-item">
                                 <a href="#" aria-label="Previous" class="page-link btn">
                                     <span><i class="fas fa-fast-backward"></i></span>
                                 </a>
                             </li>
                             @endif
-                            @for ($i = 1; $i <=$roles->lastPage() ; $i++)
+                            @for ($i = 1; $i <=$cargos->lastPage() ; $i++)
                             <li class="page-item">
-                                <a class="page-link btn" onclick="cambiarPaginaRole({{ $i }})">{{ $i }}</a>
+                                <a class="page-link btn" onclick="cambiarPaginaCargo({{ $i }})">{{ $i }}</a>
                             </li>
                             @endfor
                         </ul>

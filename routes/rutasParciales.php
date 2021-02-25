@@ -19,4 +19,11 @@ Route::post('usuarios-delete/{usuario}','UserController@destroyTemporal')->name(
 Route::get('usuarios-habilitados','UserController@habilitados')->name('usuarios.habilitados');
 Route::get('usuarios-eliminados','UserController@eliminados')->name('usuarios.eliminados');
 Route::get('usuarios-todos','UserController@todos')->name('usuarios.todos');
-Route::post('usuarios-restaurar','UsersController@restaurar')->name('usuarios.restaurar');
+Route::post('usuarios-restaurar','UserController@restaurar')->name('usuarios.restaurar');
+
+//RUTAS CONFIGURACION -CARGO
+Route::post('cargos-delete/{cargo}','CargoController@destroyTemporal')->name('cargos.delete-temp');
+Route::get('cargos-habilitados','CargoController@habilitados')->name('cargos.habilitados');
+Route::get('cargos-eliminados','CargoController@eliminados')->name('cargos.eliminados');
+Route::get('cargos-todos','CargoController@todos')->name('cargos.todos');
+Route::post('cargos-restaurar','CargoController@restaurar')->name('cargos.restaurar');

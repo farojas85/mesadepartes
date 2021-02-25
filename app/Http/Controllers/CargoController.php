@@ -4,82 +4,137 @@ namespace App\Http\Controllers;
 
 use App\Models\Cargo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Traits\CargoTrait;
 
 class CargoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    use CargoTrait;
+
+    public function __construct()
     {
-        //
+        $this->tituloVista = 'Cargos';
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function index(Request $request)
+    {
+        $cargos = $this->obtenerHabilitados($request);
+
+        return view("configuracion.cargo.inicio",[
+            'tituloVista'=> $this->tituloVista,
+            'cargos' => $cargos
+        ]);
+    }
+
+    public function habilitados(Request $request)
+    {
+        $cargos = $this->obtenerHabilitados($request);
+
+        return view("configuracion.cargo.tabla",[
+            'tituloVista'=> $this->tituloVista,
+            'cargos' => $cargos
+        ]);
+    }
+
+    public function eliminados(Request $request)
+    {
+        $cargos = $this->obtenerEliminados($request);
+
+        return view("configuracion.cargo.tabla",[
+            'tituloVista'=> $this->tituloVista,
+            'cargos' => $cargos
+        ]);
+    }
+
+    public function todos(Request $request)
+    {
+        $cargos = $this->obtenerTodos($request);
+
+        return view("configuracion.cargo.tabla",[
+            'tituloVista'=> $this->tituloVista,
+            'cargos' => $cargos
+        ]);
+    }
+
     public function create()
     {
-        //
+        $estadoCrud='nuevo';
+        return view('configuracion.cargo.create',compact('estadoCrud'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request)
     {
-        //
+        $reglas = [
+            'nombre' => 'required',
+        ];
+
+        $mensaje = ['required' => '* Campo Obligatorio'];
+
+        $this->validate($request,$reglas,$mensaje);
+
+        $cargo = Cargo::create([
+            'nombre' => $request->nombre,
+        ]);
+
+        return response()->json([
+            'ok' => 1,
+            'mensaje' => 'Cargo Registrado Satisfactoriamente'
+        ], 200);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Cargo  $cargo
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Cargo $cargo)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Cargo  $cargo
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Cargo $cargo)
     {
-        //
+        $estadoCrud = 'editar';
+        return view('configuracion.cargo.edit',compact('cargo','estadoCrud'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Cargo  $cargo
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Cargo $cargo)
     {
-        //
+        $reglas = [
+            'nombre' => 'required',
+        ];
+
+        $mensaje = ['required' => '* Campo Obligatorio'];
+
+        $cargo->nombre =  $request->nombre;
+        $cargo->estado = ($request->estado) ? 1 : 0;
+        $cargo->save();
+
+        return response()->json([
+            'ok' => 1,
+            'mensaje' => 'Cargo Modificado Satisfactoriamente'
+        ], 200);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Cargo  $cargo
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Cargo $cargo)
     {
-        //
+        $cargo->forceDelete();
+
+        return response()->json([
+            'ok' => 1,
+            'mensaje' => 'Cargo eliminado permanentemente'
+        ], 200);
+    }
+
+    public function destroyTemporal(Cargo $cargo)
+    {
+        $cargo->delete();
+
+        return response()->json([
+            'ok' => 1,
+            'mensaje' => 'Cargo Enviado a Papelera Satisfactoriamente'
+        ], 200);
+    }
+
+    public function restaurar(Request $request)
+    {
+        $cargo = Cargo::onlyTrashed()->where('id',$request->id);
+        $cargo->restore();
+
+        return response()->json([
+            'ok' => 1,
+            'mensaje' => 'Cargo Restaurado Satisfactoriamente'
+        ], 200);
     }
 }

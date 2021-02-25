@@ -48,6 +48,10 @@ trait UserTrait
                         ->orWhere(DB::Raw("upper(ro.nombre)"),'like','%'.$buscar.'%');
                 })->paginate(5);
 
+                // $buscar = $this->convertirMayuscula($request);
+                // return Cargo::select('id','nombre')
+                //->where(DB::Raw('upper(nombre)'),'like','%'.$buscar.'%')
+                // ->paginate(5);
     }
 
     public function obtenerTodos(Request $request)
@@ -195,6 +199,55 @@ trait UserTrait
             'mensaje' => 'Usuario añadido Satisfactoriamente'
         ], 200);
 
+    }
+
+    public function actualizar(Request $request)
+    {
+        $regla = [
+            'tipo_documento_id' => 'required',
+            'numero_documento' => 'required',
+            'nombres' => 'required',
+            'apellido_paterno' => 'required',
+            'apellido_materno' => 'required',
+            'sexo' => 'required',
+            'usuario_codigo' => 'required',
+            'cargo_id' => 'required',
+            'role_id' => 'required'
+        ];
+
+        $mensaje = [
+            'required' => '* Dato Obligator'
+        ];
+
+        $this->validate($request,$regla,$mensaje);
+
+        $usuario = User::findOrfail($request->id);
+
+        $persona = Persona::findOrFail($usuario->persona_id);
+
+        $persona->tipodocumento_id = $request->tipo_documento_id;
+        $persona->numero_documento = $request->numero_documento;
+        $persona->nombres = $request->nombres;
+        $persona->apellido_paterno = $request->apellido_paterno;
+        $persona->apellido_materno = $request->apellido_materno;
+        $persona->correo_personal = $request->correo_personal;
+        $persona->telefono_celular = $request->telefono_celular;
+        $persona->telefono_fijo = $request->telefono_fijo;
+        $persona->sexo = $request->sexo;
+        $persona->save();
+
+        $usuario->usuario_codigo = $request->usuario_codigo;
+        $usuario->usuario_email = $request->usuario_email;
+        $usuario->numero_celular = $request->numero_celular;
+        $usuario->numero_anexo = $request->numero_anexo;
+        $usuario->cargo_id = $request->cargo_id;
+        $usuario->role_id = $request->role_id;
+        $usuario->save();
+
+        return response()->json([
+            'ok' => 1,
+            'mensaje' => 'Usuario añadido Satisfactoriamente'
+        ], 200);
     }
 
 }

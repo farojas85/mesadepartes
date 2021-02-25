@@ -23,7 +23,27 @@
                     <td class="text-center">
                         <span class="{{ $usuario->estado_clase }}">{{ $usuario->estado_nombre }}</span>
                     </td>
-                    <td></td>
+                    <td>
+                        @if($usuario->deleted_at == null)
+                        <button type="button" class="btn btn-info btn-xs btn-mostrar-usuario"
+                            onclick="mostrarUsuario({{ $usuario->id }})">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                        <button type="button" class="btn btn-warning btn-xs btn-editar-usuario"
+                            onclick="editarUsuario({{ $usuario->id }})">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button type="button" class="btn btn-danger btn-xs btn-eliminar-usuario"
+                            onclick="eliminarUsuario({{ $usuario->id }})" title="Eliminar Usuario">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                        @else
+                        <button type="button" class="btn bg-purple btn-xs btn-restaurar-usuario"
+                            onclick="restaurarUsuario({{ $usuario->id }})" title="Restaurar Usuario">
+                            <i class="fas fa-trash-restore-alt"></i>
+                        </button>
+                        @endif
+                    </td>
                 </tr>
                 @empty
                     <tr>
