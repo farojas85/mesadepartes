@@ -27,3 +27,11 @@ Route::get('cargos-habilitados','CargoController@habilitados')->name('cargos.hab
 Route::get('cargos-eliminados','CargoController@eliminados')->name('cargos.eliminados');
 Route::get('cargos-todos','CargoController@todos')->name('cargos.todos');
 Route::post('cargos-restaurar','CargoController@restaurar')->name('cargos.restaurar');
+
+//RUTAS CONFIGURACION -TIPO DOCUMENTOS
+Route::post('tipodocumentos-delete/{tipodocumento}','TipoDocumentoController@destroyTemporal')->name('tipodocumentos.delete-temp');
+Route::get('tipodocumentos-habilitados','TipoDocumentoController@habilitados')->name('tipodocumentos.habilitados');
+Route::get('tipodocumentos-eliminados','TipoDocumentoController@eliminados')->name('tipodocumentos.eliminados');
+Route::get('tipodocumentos-todos','TipoDocumentoController@todos')->name('tipodocumentos.todos');
+Route::post('tipodocumentos-restaurar','TipoDocumentoController@restaurar')->name('tipodocumentos.restaurar');
+

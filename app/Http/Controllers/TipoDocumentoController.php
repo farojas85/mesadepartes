@@ -4,83 +4,139 @@ namespace App\Http\Controllers;
 
 use App\Models\TipoDocumento;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Traits\TipoDocumentoTrait;
 
 class TipoDocumentoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    use TipoDocumentoTrait;
+    public function __construct()
     {
-        //
+        $this->tituloVista = 'Tipodocumentos';
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function index(Request $request)
+    {
+        $tipodocumentos = $this->obtenerHabilitados($request);
+
+        return view("configuracion.tipodocumento.inicio",[
+            'tituloVista'=> $this->tituloVista,
+            'tipodocumentos' => $tipodocumentos
+        ]);
+    }
+
+    public function habilitados(Request $request)
+    {
+        $tipodocumentos = $this->obtenerHabilitados($request);
+
+        return view("configuracion.tipodocumento.tabla",[
+            'tituloVista'=> $this->tituloVista,
+            'tipodocumentos' => $tipodocumentos
+        ]);
+    }
+
+    public function eliminados(Request $request)
+    {
+        $tipodocumentos = $this->obtenerEliminados($request);
+
+        return view("configuracion.tipodocumento.tabla",[
+            'tituloVista'=> $this->tituloVista,
+            'tipodocumentos' => $tipodocumentos
+        ]);
+    }
+
+    public function todos(Request $request)
+    {
+        $tipodocumentos = $this->obtenerTodos($request);
+
+        return view("configuracion.tipodocumento.tabla",[
+            'tituloVista'=> $this->tituloVista,
+            'tipodocumentos' => $tipodocumentos
+        ]);
+    }
+
     public function create()
     {
-        //
+        $estadoCrud='nuevo';
+        return view('configuracion.tipodocumento.create',compact('estadoCrud'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request)
     {
-        //
+        $reglas = [
+            'nombre' => 'required',
+        ];
+
+        $mensaje = ['required' => '* Campo Obligatorio'];
+
+        $this->validate($request,$reglas,$mensaje);
+
+        $tipodocumento = TipoDocumento::create([
+            'nombre' => $request->nombre,
+        ]);
+
+        return response()->json([
+            'ok' => 1,
+            'mensaje' => 'Tipo Documento Registrado Satisfactoriamente'
+        ], 200);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\TipoDocumento  $tipoDocumento
-     * @return \Illuminate\Http\Response
-     */
-    public function show(TipoDocumento $tipoDocumento)
+
+    public function edit(TipoDocumento $tipodocumento)
     {
-        //
+        $estadoCrud = 'editar';
+        return view('configuracion.tipodocumento.edit',compact('tipodocumento','estadoCrud'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\TipoDocumento  $tipoDocumento
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(TipoDocumento $tipoDocumento)
+
+    public function update(Request $request, TipoDocumento $tipodocumento)
     {
-        //
+        $reglas = [
+            'nombre' => 'required',
+        ];
+
+        $mensaje = ['required' => '* Campo Obligatorio'];
+
+        $tipodocumento->nombre =  $request->nombre;
+        $tipodocumento->save();
+
+        return response()->json([
+            'ok' => 1,
+            'mensaje' => 'Tipo Documento Modificado Satisfactoriamente'
+        ], 200);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\TipoDocumento  $tipoDocumento
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, TipoDocumento $tipoDocumento)
+    public function destroy(TipoDocumento $tipodocumento)
     {
-        //
+        $tipodocumento->forceDelete();
+
+        return response()->json([
+            'ok' => 1,
+            'mensaje' => 'Tipo Documento eliminado permanentemente'
+        ], 200);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\TipoDocumento  $tipoDocumento
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(TipoDocumento $tipoDocumento)
+    public function destroyTemporal(TipoDocumento $tipodocumento)
     {
-        //
+        $tipodocumento->delete();
+
+        return response()->json([
+            'ok' => 1,
+            'mensaje' => 'Tipo Documento Enviado a Papelera Satisfactoriamente'
+        ], 200);
+    }
+
+
+    public function restaurar(Request $request)
+    {
+        $tipodocumento = TipoDocumento::onlyTrashed()->where('id',$request->id);
+        $tipodocumento->restore();
+
+        return response()->json([
+            'ok' => 1,
+            'mensaje' => 'Tipo Documento Restaurado Satisfactoriamente'
+        ], 200);
     }
 
     public function listado()

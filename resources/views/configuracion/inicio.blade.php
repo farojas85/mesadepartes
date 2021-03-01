@@ -21,15 +21,15 @@
 @section('contenido')
 <div class="row">
     <div class="col-md-12 mb-2">
-        <div class="card card-primary card-outline">
+        <div class="card card-purple card-outline">
             <div class="card-header p-0 pt-1">
-                <button type="button" class="btn btn-app bg-primary"
+                <button type="button" class="btn btn-app bg-purple"
                     onclick="cambiarVista('cargos')">
-                    <i class="fas fa-user-tag"></i> Cargos
+                    <i class="fas fa-id-card-alt"></i> Cargos
                 </button>
-                <button type="button" class="btn btn-app bg-primary"
+                <button type="button" class="btn btn-app bg-purple"
                     onclick="cambiarVista('tipodocumentos')">
-                    <i class="fas fa-users"></i> Tipo Doc.
+                    <i class="fab fa-dochub"></i> Tipo Doc.
                 </button>
             </div>
             <div class="card-body">

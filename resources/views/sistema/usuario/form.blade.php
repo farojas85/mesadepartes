@@ -122,6 +122,15 @@
                     </div>
                 </div>
                 <div class="form-group row">
+                    <label for="nombre" class="col-form-label col-md-3">Contrase&ntilde;a</label>
+                    <div class="col-md-9">
+                        <input type="password" class="form-control" id="password" name ='password'
+                            placeholder="Ingrese Contraseña"
+                            @if($estadoCrud == 'editar') value="{{ $usuario->password }}" @endif>
+                            {{-- @if($estadoCrud == 'editar') value="{{ $usuario->usuario_email }}" @endif> --}}
+                    </div>
+                </div>
+                <div class="form-group row">
                     <label for="nombre" class="col-form-label col-md-3">Nro. Celular</label>
                     <div class="col-md-9">
                         <input type="text" class="form-control" id="numero_celular" name ='numero_celular'
