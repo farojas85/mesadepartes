@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
 use Illuminate\Http\Request;
 use App\Models\Role;
 use App\Models\Cargo;
@@ -157,5 +158,24 @@ class UserController extends Controller
             'ok' => 1,
             'mensaje' => 'Rol Restaurado Satisfactoriamente'
         ], 200);
+    }
+
+    public function mdlCambiarContrasena(Request $request)
+    {
+        $usuario = User::findOrFail($request->id);
+
+        return view('sistema.usuario.mdlCambiarContrasena',compact('usuario'));
+    }
+
+    public function guardarContrasena(Request $request)
+    {
+        return $this->modificarContrasena($request);
+    }
+
+    public function perfilView()
+    {
+        $user = Auth::user();
+
+        return view('sistema.usuario.perfil',compact('user'));
     }
 }

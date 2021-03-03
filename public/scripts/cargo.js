@@ -1,13 +1,3 @@
-$(function() {
-    $.ajax({
-        url: 'cargos?buscar=',
-        type:"GET",
-        success: function (respuesta) {
-            $('#tab-content').html(respuesta)
-        }
-    });
-})
-
 function cambiarPaginaCargo(pagina)
 {
     $.ajax({

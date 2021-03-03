@@ -121,6 +121,7 @@
                             @if($estadoCrud == 'editar') value="{{ $usuario->usuario_email }}" @endif>
                     </div>
                 </div>
+                @if($estadoCrud=='nuevo')
                 <div class="form-group row">
                     <label for="nombre" class="col-form-label col-md-3">Contrase&ntilde;a</label>
                     <div class="col-md-9">
@@ -130,6 +131,7 @@
                             {{-- @if($estadoCrud == 'editar') value="{{ $usuario->usuario_email }}" @endif> --}}
                     </div>
                 </div>
+                @endif
                 <div class="form-group row">
                     <label for="nombre" class="col-form-label col-md-3">Nro. Celular</label>
                     <div class="col-md-9">

@@ -1,17 +1,3 @@
-
-
-$(function() {
-    $.ajax({
-        url: 'roles?buscar=',
-        type:"GET",
-        success: function (respuesta) {
-            $('#tab-content').html(respuesta)
-        }
-    });
-})
-
-
-
 function cambiarPaginaRole(pagina)
 {
     $.ajax({

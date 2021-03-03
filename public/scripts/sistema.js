@@ -27,3 +27,14 @@ var script2= document.createElement('script')
 script2.src='scripts/usuario.js'
 
 document.head.appendChild(script2)
+
+//-----
+$(function() {
+    $.ajax({
+        url: 'roles?buscar=',
+        type:"GET",
+        success: function (respuesta) {
+            $('#tab-content').html(respuesta)
+        }
+    });
+})

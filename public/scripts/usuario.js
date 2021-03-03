@@ -1,4 +1,3 @@
-
 function nuevoUsuario()
 {
     $.ajax({
@@ -340,6 +339,75 @@ function restaurarUsuario(usuario)
                     }
                 }
             })
+        }
+    })
+}
+
+function mdlCambiarContrasena(usuario)
+{
+    $.ajax({
+        url:'usuarios-modificar-contrasena?id='+usuario,
+        type:"GET",
+        success: function (respuesta) {
+            $('#modal-default-title').html('Nuevo Usuario');
+            $('#modal-default-body').html(respuesta)
+            $('#modal-default').modal('show')
+        }
+    });
+}
+
+
+function eliminarClaseInvalidPassword()
+{
+    $('.error-mensaje').remove()
+    $('#password').removeClass('is-invalid');
+    $('#password_confirmation').removeClass('is-invalid');
+}
+
+function guardarContrasena(event)
+{
+
+    event.preventDefault();
+
+    var form = $('#form-cambiar-contrasena'),
+                url = form.attr('action'),
+                method =form.attr('method');
+
+
+    $.ajax({
+        url : url,
+        method: method,
+        data :form.serialize(),
+        success: function (respuesta) {
+            eliminarClaseInvalidPassword()
+
+            if(respuesta.ok ==1)
+            {
+                $('#modal-default').modal('hide')
+
+                Swal.fire({
+                    title: 'Usuarios',
+                    text: respuesta.mensaje,
+                    icon: 'success',
+                    confirmButtonText: 'Aceptar'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        cambiarVista('usuarios')
+                    }
+                })
+            }
+        },
+        error : function (xhr) {
+            var res = xhr.responseJSON;
+            console.clear()
+            $('.error-mensaje').remove()
+            if ($.isEmptyObject(res) == false) {
+                $.each(res.errors, function (key, value) {
+                    $('#' + key).addClass('is-invalid')
+                        .closest('.col-md-7')
+                        .append('<small class="text-danger error-mensaje">' + value + '</small>');
+                });
+            }
         }
     })
 }

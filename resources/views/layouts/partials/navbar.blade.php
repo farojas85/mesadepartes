@@ -31,10 +31,13 @@
                 <span class="hidden-xs">{{ Auth::user()->usuario_email }}</span>
             </a>
             <div class="dropdown-menu dropdown-menu-right">
+                <a href="usuarios-perfil" class="dropdown-item">
+                    <i class="fas fa-id-card-alt mr-2"></i> Mi Perfil
+                </a>
                 <a href="logout" class="dropdown-item"
                     onclick="event.preventDefault();
                     document.getElementById('logout-form').submit();">
-                    <i class="fas fa-power-off mr-2"></i> Cerrar Sessi&oacute;n
+                    <i class="fas fa-power-off mr-2 text-danger"></i> Cerrar Sesi&oacute;n
                 </a>
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                     @csrf

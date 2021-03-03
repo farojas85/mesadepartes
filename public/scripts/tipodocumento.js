@@ -1,12 +1,12 @@
-$(function() {
-    $.ajax({
-        url: 'tipodocumentos?buscar=',
-        type:"GET",
-        success: function (respuesta) {
-            $('#tab-content').html(respuesta)
-        }
-    });
-})
+// $(function() {
+//     $.ajax({
+//         url: 'tipodocumentos?buscar=',
+//         type:"GET",
+//         success: function (respuesta) {
+//             $('#tab-content').html(respuesta)
+//         }
+//     });
+// })
 
 function cambiarPaginaTipoDocumento(pagina)
 {

@@ -250,4 +250,31 @@ trait UserTrait
         ], 200);
     }
 
+    public function modificarContrasena(Request $request)
+    {
+        $regla = [
+            'password' => 'required|confirmed|min:8',
+            'password_confirmation' => 'required|min:8'
+        ];
+
+        $mensaje = [
+            'required' => '* Dato Obligatorio',
+            'min' => 'Mínimo :min caracteres',
+            'confirmed' =>'No Coinciden las contraseñas'
+        ];
+
+        $user = User::findOrFail($request->usuario_id);
+
+        $this->validate($request,$regla,$mensaje);
+
+        $user->password = Hash::make($request->password);
+        $user->save();
+
+        return response()->json([
+            'ok' => 1,
+            'mensaje' => 'La Contraseña ha sido Modificada Satisfactoriamente'
+        ], 200);
+
+    }
+
 }

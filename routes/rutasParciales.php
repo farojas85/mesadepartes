@@ -20,6 +20,9 @@ Route::get('usuarios-habilitados','UserController@habilitados')->name('usuarios.
 Route::get('usuarios-eliminados','UserController@eliminados')->name('usuarios.eliminados');
 Route::get('usuarios-todos','UserController@todos')->name('usuarios.todos');
 Route::post('usuarios-restaurar','UserController@restaurar')->name('usuarios.restaurar');
+Route::get('usuarios-modificar-contrasena','UserController@mdlCambiarContrasena')->name('usuarios.modificar-contrasena');
+Route::post('usuarios-guardar-contrasena','UserController@guardarContrasena')->name('usuarios.guardar-contrasena');
+Route::get('usuarios-perfil','UserController@perfilView')->name('usuarios.perfil');
 
 //RUTAS CONFIGURACION -CARGO
 Route::post('cargos-delete/{cargo}','CargoController@destroyTemporal')->name('cargos.delete-temp');

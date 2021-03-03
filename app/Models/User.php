@@ -65,4 +65,15 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Role::class);
     }
+
+    /**
+     * Get the cargo that owns the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function cargo(): BelongsTo
+    {
+        //App\Cargo;
+        return $this->belongsTo(Cargo::class);
+    }
 }

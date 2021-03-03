@@ -72,12 +72,16 @@
                                         <td>
                                             @if($usuario->deleted_at == null)
                                             <button type="button" class="btn btn-info btn-xs btn-mostrar-usuario"
-                                                onclick="mostrarUsuario({{ $usuario->id }})">
+                                                title="Mostrar Contraseña" onclick="mostrarUsuario({{ $usuario->id }})">
                                                 <i class="fas fa-eye"></i>
                                             </button>
                                             <button type="button" class="btn btn-warning btn-xs btn-editar-usuario"
-                                                onclick="editarUsuario({{ $usuario->id }})">
+                                                title="Editar Usuario" onclick="editarUsuario({{ $usuario->id }})">
                                                 <i class="fas fa-edit"></i>
+                                            </button>
+                                            <button class="btn bg-indigo btn-xs btn-modificar-password"
+                                                title="Cambiar Contraseña" onclick="mdlCambiarContrasena({{ $usuario->id }})">
+                                                <i class="fas fa-key"></i>
                                             </button>
                                             <button type="button" class="btn btn-danger btn-xs btn-eliminar-usuario"
                                                 onclick="eliminarUsuario({{ $usuario->id }})" title="Eliminar Usuario">
