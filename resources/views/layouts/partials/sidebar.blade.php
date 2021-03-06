@@ -12,9 +12,15 @@
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
                 @auth
-                    <img src="{{ asset('images/'.\Auth::user()->foto) }}" class="img-circle elevation-2" alt="User Image">
+                    {{-- <img src="{{ asset('images/'.\Auth::user()->foto) }}" class="img-circle elevation-2" alt="User Image"> --}}
+                    @if(\Auth::user()->foto=='user_varon.png'|| \Auth::user()->foto=='user_mujer.png')
+                        <img src="{{ asset('images/'.\Auth::user()->foto) }}" class="img-size-32 img-circle" alt="User Image">
+                        {{-- <img class="profile-user-img img-fluid img-circle" src="images/{{ $user->foto }}" > --}}
+                    @else
+                        <img  class="img-size-32 img-circle" src="/storage/usuario/{{ \Auth::user()->persona_dni }}/{{\Auth::user()->foto}}" >
+                    @endif
                 @else
-                    <img src="adminlte/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                    <img src="{{ asset('adminlte/dist/img/user2-160x160.jpg')}}" class="img-circle elevation-2" alt="User Image">
                 @endauth
             </div>
             <div class="info">

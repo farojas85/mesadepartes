@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Auth;
+use Storage;
+use File;
 use Illuminate\Http\Request;
 use App\Models\Role;
 use App\Models\Cargo;
@@ -177,5 +179,63 @@ class UserController extends Controller
         $user = Auth::user();
 
         return view('sistema.usuario.perfil',compact('user'));
+    }
+
+    public function mdlSubirFoto(Request $request)
+    {
+        $usuario = User::findOrFail($request->id);
+
+        return view('sistema.usuario.mdlSubirFoto',compact('usuario'));
+    }
+
+    public function guardarFoto(Request $request)
+    {
+        $regla = [
+            'foto' => 'required|file',
+        ];
+        $mensaje= [
+            'required' => '* Campo Obligatorio'];
+
+        $this->validate($request,$regla,$mensaje);
+
+        if($archivo = $request->file('foto'))
+        {
+
+            if(mb_strtoupper($archivo->getClientOriginalExtension()) != 'JPG' &&
+                mb_strtoupper($archivo->getClientOriginalExtension()) != 'PNG' &&
+                mb_strtoupper($archivo->getClientOriginalExtension()) != 'JPEG')
+            {
+                $error = [
+                    'errors' => [
+                        'foto' => [
+                            'El archivo debe tener la extención (.jpg, .png, .jpeg)'
+                        ]
+                    ]
+                ];
+
+                return response()->json($error, 422);
+            }
+
+            $nombre = Auth::user()->persona_dni.'/'.Auth::user()->persona_dni.'.'.$archivo->getClientOriginalExtension();
+
+            Storage::disk('usuario')->put($nombre, File::get($archivo));
+
+            $user = User::where('id',Auth::user()->id)->first();
+            // //$persona = Persona::where('dni',$user->persona_dni)->first();
+
+
+            $user->foto = Auth::user()->persona_dni.'.'.$archivo->getClientOriginalExtension();
+            $user->save();
+
+            return response()->json([
+                'ok' => 1,
+                'mensaje' => 'Foto de Usuario Modificado Satisfactoriamente'
+            ], 200);
+
+        } else {
+            $validator = Validator::make($request->all(), [
+                'foto' => 'required|file',
+            ]);
+        }
     }
 }

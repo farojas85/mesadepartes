@@ -27,7 +27,12 @@
         @auth
         <li class="nav-item dropdown">
             <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="true">
-                <img src="{{ asset('images/'.Auth::user()->foto) }}" class="img-size-32 img-circle" alt="User Image">
+                @if(\Auth::user()->foto=='user_varon.png'|| \Auth::user()->foto=='user_mujer.png')
+                    <img src="{{ asset('images/'.\Auth::user()->foto) }}" class="img-size-32 img-circle" alt="User Image">
+                    {{-- <img class="profile-user-img img-fluid img-circle" src="images/{{ $user->foto }}" > --}}
+                @else
+                    <img  class="img-size-32 img-circle" src="/storage/usuario/{{ \Auth::user()->persona_dni }}/{{\Auth::user()->foto}}" >
+                @endif
                 <span class="hidden-xs">{{ Auth::user()->usuario_email }}</span>
             </a>
             <div class="dropdown-menu dropdown-menu-right">

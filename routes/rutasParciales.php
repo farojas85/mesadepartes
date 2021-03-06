@@ -23,6 +23,8 @@ Route::post('usuarios-restaurar','UserController@restaurar')->name('usuarios.res
 Route::get('usuarios-modificar-contrasena','UserController@mdlCambiarContrasena')->name('usuarios.modificar-contrasena');
 Route::post('usuarios-guardar-contrasena','UserController@guardarContrasena')->name('usuarios.guardar-contrasena');
 Route::get('usuarios-perfil','UserController@perfilView')->name('usuarios.perfil');
+Route::get('usuarios-subir-foto','UserController@mdlSubirFoto')->name('usuarios.subir-foto');
+Route::post('usuarios-guardar-foto','UserController@guardarFoto')->name('usuarios.guardar-foto');
 
 //RUTAS CONFIGURACION -CARGO
 Route::post('cargos-delete/{cargo}','CargoController@destroyTemporal')->name('cargos.delete-temp');

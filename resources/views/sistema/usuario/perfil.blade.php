@@ -26,9 +26,14 @@
       <div class="card card-primary card-outline">
         <div class="card-body box-profile">
           <div class="text-center">
-            <img class="profile-user-img img-fluid img-circle"
+            @if($user->foto=='user_varon.png'|| $user->foto=='user_mujer.png')
+                <img class="profile-user-img img-fluid img-circle" src="images/{{ $user->foto }}" >
+            @else
+                <img class="profile-user-img img-fluid img-circle" src="/storage/usuario/{{ $user->persona_dni }}/{{$user->foto}}" >
+            @endif
+            {{-- <img class="profile-user-img img-fluid img-circle"
                  src="images/{{ $user->foto }}"
-                 alt="User profile picture">
+                 alt="User profile picture"> --}}
           </div>
 
           <h3 class="profile-username text-center">{{ $user->persona->nombres.' '.$user->persona->apellido_paterno.' '.$user->persona->apellido_materno }}</h3>
@@ -48,7 +53,7 @@
             </li>
           </ul> --}}
 
-            <button class="btn btn-primary btn-block">
+            <button class="btn btn-primary btn-block" onclick="mdlSubirFoto({{ $user->id }})">
                 <i class="fas fa-cloud-upload-alt"></i> Subir foto
             </button>
         </div>
@@ -174,4 +179,8 @@
     </div>
     <!-- /.col -->
 </div>
+@endsection
+
+@section('scripts')
+<script src="scripts/perfil.js"></script>
 @endsection
