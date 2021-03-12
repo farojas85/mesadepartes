@@ -21,27 +21,29 @@
 @section('contenido')
 <div class="row">
     <div class="col-md-3">
-
       <!-- Profile Image -->
       <div class="card card-primary card-outline">
         <div class="card-body box-profile">
           <div class="text-center">
-            @if($user->foto=='user_varon.png'|| $user->foto=='user_mujer.png')
-                <img class="profile-user-img img-fluid img-circle" src="images/{{ $user->foto }}" >
+            @if($usuario->foto=='user_varon.png'|| $usuario->foto=='user_mujer.png')
+                <img class="profile-user-img img-fluid img-circle" src="images/{{ $usuario->foto }}" >
             @else
-                <img class="profile-user-img img-fluid img-circle" src="/storage/usuario/{{ $user->persona_dni }}/{{$user->foto}}" >
+                @php
+                    $foto = explode(".",\Auth::user()->foto);
+                @endphp
+                <img class="profile-user-img img-fluid img-circle" src="/storage/usuario/{{ $foto[0] }}/{{$usuario->foto}}" >
             @endif
             {{-- <img class="profile-user-img img-fluid img-circle"
-                 src="images/{{ $user->foto }}"
+                 src="images/{{ $usuario->foto }}"
                  alt="User profile picture"> --}}
           </div>
 
-          <h3 class="profile-username text-center">{{ $user->persona->nombres.' '.$user->persona->apellido_paterno.' '.$user->persona->apellido_materno }}</h3>
+          <h3 class="profile-username text-center">{{ $usuario->persona->nombres.' '.$usuario->persona->apellido_paterno.' '.$usuario->persona->apellido_materno }}</h3>
 
-          <p class="text-muted text-center">{{ $user->role->nombre }}</p>
-          <p class="text-muted text-center">{{ $user->cargo->nombre }}</p>
+          <p class="text-muted text-center">{{ $usuario->role->nombre }}</p>
+          <p class="text-muted text-center">{{ $usuario->cargo->nombre }}</p>
 
-          {{-- <ul class="list-group list-group-unbordered mb-3">
+        {{-- <ul class="list-group list-group-unbordered mb-3">
             <li class="list-group-item">
               <b>Followers</b> <a class="float-right">1,322</a>
             </li>
@@ -53,8 +55,11 @@
             </li>
           </ul> --}}
 
-            <button class="btn btn-primary btn-block" onclick="mdlSubirFoto({{ $user->id }})">
+            <button class="btn btn-primary btn-block" onclick="mdlSubirFoto({{ $usuario->id }})">
                 <i class="fas fa-cloud-upload-alt"></i> Subir foto
+            </button>
+            <button class="btn bg-pink btn-block" onclick="mdlCambiarContrasena({{ $usuario->id }})">
+                <i class="fas fa-key"></i> Cambiar Contraseña
             </button>
         </div>
         <!-- /.card-body -->
@@ -66,109 +71,18 @@
       <div class="card">
         <div class="card-header p-2">
           <ul class="nav nav-pills">
-            <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">Datos Personales</a></li>
-            <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">Seguridad</a></li>
+            <li class="nav-item"><a class="nav-link active" href="#dato-personal" data-toggle="tab">Datos Personales</a></li>
+            <li class="nav-item"><a class="nav-link" href="#dato-usuario" data-toggle="tab">Datos Usuario</a></li>
           </ul>
         </div><!-- /.card-header -->
         <div class="card-body">
           <div class="tab-content">
-            <div class="active tab-pane" id="activity">
-
+            <div class="active tab-pane" id="dato-personal">
+                @include('sistema.usuario.mostrarDatoPersona')
             </div>
             <!-- /.tab-pane -->
-            <div class="tab-pane" id="timeline">
-              <!-- The timeline -->
-              <div class="timeline timeline-inverse">
-                <!-- timeline time label -->
-                <div class="time-label">
-                  <span class="bg-danger">
-                    10 Feb. 2014
-                  </span>
-                </div>
-                <!-- /.timeline-label -->
-                <!-- timeline item -->
-                <div>
-                  <i class="fas fa-envelope bg-primary"></i>
-
-                  <div class="timeline-item">
-                    <span class="time"><i class="far fa-clock"></i> 12:05</span>
-
-                    <h3 class="timeline-header"><a href="#">Support Team</a> sent you an email</h3>
-
-                    <div class="timeline-body">
-                      Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles,
-                      weebly ning heekya handango imeem plugg dopplr jibjab, movity
-                      jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo kaboodle
-                      quora plaxo ideeli hulu weebly balihoo...
-                    </div>
-                    <div class="timeline-footer">
-                      <a href="#" class="btn btn-primary btn-sm">Read more</a>
-                      <a href="#" class="btn btn-danger btn-sm">Delete</a>
-                    </div>
-                  </div>
-                </div>
-                <!-- END timeline item -->
-                <!-- timeline item -->
-                <div>
-                  <i class="fas fa-user bg-info"></i>
-
-                  <div class="timeline-item">
-                    <span class="time"><i class="far fa-clock"></i> 5 mins ago</span>
-
-                    <h3 class="timeline-header border-0"><a href="#">Sarah Young</a> accepted your friend request
-                    </h3>
-                  </div>
-                </div>
-                <!-- END timeline item -->
-                <!-- timeline item -->
-                <div>
-                  <i class="fas fa-comments bg-warning"></i>
-
-                  <div class="timeline-item">
-                    <span class="time"><i class="far fa-clock"></i> 27 mins ago</span>
-
-                    <h3 class="timeline-header"><a href="#">Jay White</a> commented on your post</h3>
-
-                    <div class="timeline-body">
-                      Take me to your leader!
-                      Switzerland is small and neutral!
-                      We are more like Germany, ambitious and misunderstood!
-                    </div>
-                    <div class="timeline-footer">
-                      <a href="#" class="btn btn-warning btn-flat btn-sm">View comment</a>
-                    </div>
-                  </div>
-                </div>
-                <!-- END timeline item -->
-                <!-- timeline time label -->
-                <div class="time-label">
-                  <span class="bg-success">
-                    3 Jan. 2014
-                  </span>
-                </div>
-                <!-- /.timeline-label -->
-                <!-- timeline item -->
-                <div>
-                  <i class="fas fa-camera bg-purple"></i>
-
-                  <div class="timeline-item">
-                    <span class="time"><i class="far fa-clock"></i> 2 days ago</span>
-
-                    <h3 class="timeline-header"><a href="#">Mina Lee</a> uploaded new photos</h3>
-
-                    <div class="timeline-body">
-                      <img src="https://placehold.it/150x100" alt="...">
-                      <img src="https://placehold.it/150x100" alt="...">
-                      <img src="https://placehold.it/150x100" alt="...">
-                      <img src="https://placehold.it/150x100" alt="...">
-                    </div>
-                  </div>
-                </div>
-                <!-- END timeline item -->
-                <div>
-                  <i class="far fa-clock bg-gray"></i>
-                </div>
-              </div>
+            <div class="tab-pane" id="dato-usuario">
+               @include('sistema.usuario.mostrarDatoUsuario')
             </div>
             <!-- /.tab-pane -->
           </div>

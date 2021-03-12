@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Model;
 
 class Persona extends Model
@@ -24,7 +25,7 @@ class Persona extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function tipo_doumento(): BelongsTo
+    public function tipodocumento(): BelongsTo
     {
         return $this->belongsTo(TipoDocumento::class);
     }

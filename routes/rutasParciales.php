@@ -25,6 +25,12 @@ Route::post('usuarios-guardar-contrasena','UserController@guardarContrasena')->n
 Route::get('usuarios-perfil','UserController@perfilView')->name('usuarios.perfil');
 Route::get('usuarios-subir-foto','UserController@mdlSubirFoto')->name('usuarios.subir-foto');
 Route::post('usuarios-guardar-foto','UserController@guardarFoto')->name('usuarios.guardar-foto');
+Route::get('perfil-editar-dato-personal','UserController@mdlEditarDatoPersonal')->name('usuarios.perfil-editar-dato-personal');
+Route::get('perfil-editar-dato-usuario','UserController@mdlEditarDatoUsuario')->name('usuarios.perfil-editar-dato-usuario');
+Route::get('perfil-mostrar-dato-personal','UserController@mdlMostrarDatoPersonal')->name('usuarios.perfil-mostrar-dato-personal');
+Route::get('perfil-mostrar-dato-usuario','UserController@mdlMostrarDatoUsuario')->name('usuarios.perfil-mostrar-dato-usuario');
+Route::post('perfil-actualizar-personal','UserController@actualizarDatoPersonal')->name('usuarios.actualizar-dato-personal');
+Route::post('perfil-actualizar-usuario','UserController@actualizarDatoUsuario')->name('usuarios.actualizar-dato-usuario');
 
 //RUTAS CONFIGURACION -CARGO
 Route::post('cargos-delete/{cargo}','CargoController@destroyTemporal')->name('cargos.delete-temp');

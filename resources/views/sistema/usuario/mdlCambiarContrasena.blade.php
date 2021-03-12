@@ -4,13 +4,15 @@
     <div class="form-group row">
         <label class="col-form-label col-md-5">Nueva Contrase&ntilde;a</label>
         <div class="col-md-7">
-            <input type="password" name="password" id="password" class="form-control">
+            <input type="password" name="password" id="password" class="form-control"
+            placeholder="Ingrese Contraseña">
         </div>
     </div>
     <div class="form-group row">
         <label class="col-form-label col-md-5">Confirmar Contrase&ntilde;a</label>
         <div class="col-md-7">
-            <input type="password" name="password_confirmation" id="password_confirmation" class="form-control">
+            <input type="password" name="password_confirmation" id="password_confirmation" class="form-control"
+                placeholder="Repita Contraseña">
         </div>
     </div>
     <div class="form-group text-center">

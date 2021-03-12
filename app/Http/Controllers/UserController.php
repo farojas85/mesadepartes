@@ -176,9 +176,7 @@ class UserController extends Controller
 
     public function perfilView()
     {
-        $user = Auth::user();
-
-        return view('sistema.usuario.perfil',compact('user'));
+        return view('sistema.usuario.perfil');
     }
 
     public function mdlSubirFoto(Request $request)
@@ -216,7 +214,9 @@ class UserController extends Controller
                 return response()->json($error, 422);
             }
 
-            $nombre = Auth::user()->persona_dni.'/'.Auth::user()->persona_dni.'.'.$archivo->getClientOriginalExtension();
+            $persona = Persona::findOrFail(Auth::user()->id);
+
+            $nombre = $persona->numero_documento.'/'.$persona->numero_documento.'.'.$archivo->getClientOriginalExtension();
 
             Storage::disk('usuario')->put($nombre, File::get($archivo));
 
@@ -224,7 +224,7 @@ class UserController extends Controller
             // //$persona = Persona::where('dni',$user->persona_dni)->first();
 
 
-            $user->foto = Auth::user()->persona_dni.'.'.$archivo->getClientOriginalExtension();
+            $user->foto = $persona->numero_documento.'.'.$archivo->getClientOriginalExtension();
             $user->save();
 
             return response()->json([
@@ -237,5 +237,43 @@ class UserController extends Controller
                 'foto' => 'required|file',
             ]);
         }
+    }
+
+    public function mdlMostrarDatoPersonal()
+    {
+        $usuario = Auth::user();
+
+        return view('sistema.usuario.mostrarDatoPersona',compact('usuario'));
+    }
+
+    public function mdlEditarDatoPersonal()
+    {
+        $usuario = Auth::user();
+
+        return view('sistema.usuario.editarDatoPersonal',compact('usuario'));
+    }
+
+    public function mdlMostrarDatoUsuario()
+    {
+        $usuario = Auth::user();
+
+        return view('sistema.usuario.mostrarDatoUsuario',compact('usuario'));
+    }
+
+    public function mdlEditarDatoUsuario()
+    {
+        $usuario = Auth::user();
+
+        return view('sistema.usuario.editarDatoUsuario',compact('usuario'));
+    }
+
+    public function actualizarDatoPersonal(Request $request)
+    {
+        return $this->modificarDatoPersonal($request);
+    }
+
+    public function actualizarDatoUsuario(Request $request)
+    {
+        return $this->modificarDatoUsuario($request);
     }
 }

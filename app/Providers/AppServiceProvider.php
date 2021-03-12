@@ -6,6 +6,13 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Pagination\Paginator;
 use App\Models\Menu;
+use App\Models\Persona;
+use App\Models\TipoDocumento;
+use App\Models\User;
+use App\Models\Cargo;
+use App\Models\Role;
+
+use Auth;
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -33,6 +40,38 @@ class AppServiceProvider extends ServiceProvider
             $menus = Menu::getMenus(true);
             $vista->with('menus',$menus);
         });
+
+        View()->composer('sistema.usuario.perfil',function($vista)
+        {
+            $usuario = Auth::user();
+
+            $tipoDocumentos = TipoDocumento::select('id','nombre')->get();
+
+            $sexos = User::listarSexo();
+
+            $cargos = Cargo::select('id','nombre')->get();
+
+            $roles = Role::select('id','nombre')->get();
+
+            $vista->with('tipoDocumentos',$tipoDocumentos)->with('usuario',$usuario)
+                    ->with('sexos',$sexos)->with('cargos',$cargos)->with('roles',$roles);
+        });
+
+        // View()->composer('sistema.usuario.editarDatoPersonal',function($vista)
+        // {
+        //     $usuario = Auth::user();
+
+        //     $tipoDocumentos = TipoDocumento::select('id','nombre')->get();
+
+        //     $sexos = User::listarSexo();
+
+        //     $cargos = Cargo::select('id','nombre')->get();
+
+        //     $roles = Role::select('id','nombre')->get();
+
+        //     $vista->with('tipoDocumentos',$tipoDocumentos)->with('usuario',$usuario)
+        //             ->with('sexos',$sexos)->with('cargos',$cargos)->with('roles',$roles);
+        // });
 
     }
 }

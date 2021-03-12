@@ -9,6 +9,7 @@ use Peru\Http\ContextClient;
 use Peru\Jne\{Dni, DniParser};
 use Peru\Sunat\{HtmlParser, Ruc, RucParser};
 
+use Auth;
 use Storage;
 use File;
 use App\Models\Role;
@@ -277,4 +278,36 @@ trait UserTrait
 
     }
 
+    public function modificarDatoPersonal(Request $request)
+    {
+        $usuario = Auth::user();
+
+        $persona = Persona::findOrFail($usuario->persona_id);
+
+        $persona->correo_personal = $request->correo_personal;
+        $persona->telefono_celular = $request->telefono_celular;
+        $persona->telefono_fijo = $request->telefono_fijo;
+        $persona->save();
+
+        return response()->json([
+            'ok' => 1,
+            'usuario' => $usuario,
+            'mensaje' => 'Datos Personales Modificados Satisfactoriamente'
+        ], 200);
+    }
+
+    public function modificarDatoUsuario(Request $request)
+    {
+        $usuario = User::findOrFail(Auth::user()->id);
+
+        $usuario->numero_celular = $request->numero_celular;
+        $usuario->numero_anexo = $request->numero_anexo;
+        $usuario->save();
+
+        return response()->json([
+            'ok' => 1,
+            'usuario' => Auth::user(),
+            'mensaje' => 'Datos de Usuario Modificados Satisfactoriamente'
+        ], 200);
+    }
 }
