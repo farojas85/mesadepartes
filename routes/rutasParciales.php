@@ -32,6 +32,13 @@ Route::get('perfil-mostrar-dato-usuario','UserController@mdlMostrarDatoUsuario')
 Route::post('perfil-actualizar-personal','UserController@actualizarDatoPersonal')->name('usuarios.actualizar-dato-personal');
 Route::post('perfil-actualizar-usuario','UserController@actualizarDatoUsuario')->name('usuarios.actualizar-dato-usuario');
 
+//RUTAS CONFIGURACION -ÁREAS
+Route::post('areas-delete/{area}','AreaController@destroyTemporal')->name('areas.delete-temp');
+Route::get('areas-habilitados','AreaController@habilitados')->name('areas.habilitados');
+Route::get('areas-eliminados','AreaController@eliminados')->name('areas.eliminados');
+Route::get('areas-todos','AreaController@todos')->name('areas.todos');
+Route::post('areas-restaurar','AreaController@restaurar')->name('areas.restaurar');
+
 //RUTAS CONFIGURACION -CARGO
 Route::post('cargos-delete/{cargo}','CargoController@destroyTemporal')->name('cargos.delete-temp');
 Route::get('cargos-habilitados','CargoController@habilitados')->name('cargos.habilitados');

@@ -18,6 +18,12 @@ function cambiarVista(vista)
     });
 }
 
+var script2= document.createElement('script')
+
+script2.src='scripts/area.js'
+
+document.head.appendChild(script2)
+
 var script= document.createElement('script')
 
 script.src='scripts/cargo.js'
@@ -32,7 +38,7 @@ document.head.appendChild(script2)
 
 $(function() {
     $.ajax({
-        url: 'cargos?buscar=',
+        url: 'areas?buscar=',
         type:"GET",
         success: function (respuesta) {
             $('#tab-content').html(respuesta)

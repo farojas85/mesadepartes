@@ -24,6 +24,10 @@
         <div class="card card-purple card-outline">
             <div class="card-header p-0 pt-1">
                 <button type="button" class="btn btn-app bg-purple"
+                    onclick="cambiarVista('areas')">
+                    <i class="fas fa-id-card-alt"></i> &Aacute;reas
+                </button>
+                <button type="button" class="btn btn-app bg-purple"
                     onclick="cambiarVista('cargos')">
                     <i class="fas fa-id-card-alt"></i> Cargos
                 </button>

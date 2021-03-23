@@ -7,6 +7,7 @@ use Storage;
 use File;
 use Illuminate\Http\Request;
 use App\Models\Role;
+use App\Models\Area;
 use App\Models\Cargo;
 use App\Models\User;
 use App\Models\Persona;
@@ -70,8 +71,9 @@ class UserController extends Controller
         $sexos = User::listarSexo();
         $roles = Role::listarRoles();
         $cargos = Cargo::listarCargos();
+        $areas = Area::listarAreas();
 
-        return view('sistema.usuario.create',compact('estadoCrud','tipoDocumentos','sexos','roles','cargos'));
+        return view('sistema.usuario.create',compact('estadoCrud','tipoDocumentos','sexos','roles','areas','cargos'));
     }
 
     public function verificarDocumento(Request $request)
@@ -94,9 +96,10 @@ class UserController extends Controller
         $tipoDocumentos  = TipoDocumento::select('id','nombre')->get();
         $roles = Role::select('id','nombre','directriz')->get();
         $sexos = User::listarSexo();
+        $areas = Area::listarAreas();
         $cargos = Cargo::listarCargos();
 
-        return view('sistema.usuario.show',compact('usuario','persona','tipoDocumentos','sexos','cargos','roles','estadoCrud'));
+        return view('sistema.usuario.show',compact('usuario','persona','tipoDocumentos','sexos','areas','cargos','roles','estadoCrud'));
     }
 
     public function edit($id)
@@ -106,6 +109,7 @@ class UserController extends Controller
         $tipoDocumentos  = TipoDocumento::select('id','nombre')->get();
         $roles = Role::select('id','nombre','directriz')->get();
         $sexos = User::listarSexo();
+        $areas = Area::listarAreas();
         $cargos = Cargo::listarCargos();
 
         $usuario = User::findOrFail($id);
@@ -121,7 +125,7 @@ class UserController extends Controller
         $usuario->telefono_fijo = $persona->telefono_fijo;
         $usuario->sexo = $persona->sexo;
 
-        return view('sistema.usuario.edit',compact('usuario','estadoCrud','tipoDocumentos','roles','sexos','cargos'));
+        return view('sistema.usuario.edit',compact('usuario','estadoCrud','tipoDocumentos','roles','sexos','areas','cargos'));
     }
 
     public function update(Request $request)

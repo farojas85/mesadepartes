@@ -20,7 +20,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'id','persona_id','usuario_codigo','usuario_email','password',
-        'numero_celular','numero_anexo','cargo_id','role_id','foto','estado'
+        'numero_celular','numero_anexo','area_id','cargo_id','role_id','foto','estado'
     ];
 
     /**
@@ -30,7 +30,7 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password',
-        'remember_token',
+        'remember_token'
     ];
 
 
@@ -66,6 +66,15 @@ class User extends Authenticatable
         return $this->belongsTo(Role::class);
     }
 
+    /**
+     * Get the area that owns the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function area(): BelongsTo
+    {
+        return $this->belongsTo(Area::class);
+    }
     /**
      * Get the cargo that owns the User
      *

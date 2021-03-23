@@ -126,6 +126,22 @@
                     </div>
                 </div>
                 <div class="form-group row">
+                    <label for="nombre" class="col-form-label col-md-3">&Aacute;rea</label>
+                    <div class="col-md-9">
+                        <select class="form-control" title="Area" id="area_id" name="area_id" >
+                            <option value="">-Seleccionar-</option>
+                        @forelse ($areas as $area)
+                            <option value="{{ $area->id }}"
+                                @if ($area->id == $usuario->area_id)
+                                selected
+                                @endif>{{ $area->nombre }}</option>
+                        @empty
+                            <option value="0">--Configurar--</option>
+                        @endforelse
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
                     <label for="nombre" class="col-form-label col-md-3">Cargo</label>
                     <div class="col-md-9">
                         <select class="form-control" title="Cargo" id="cargo_id" name="cargo_id">

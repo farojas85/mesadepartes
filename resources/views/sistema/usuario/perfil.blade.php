@@ -41,6 +41,7 @@
           <h3 class="profile-username text-center">{{ $usuario->persona->nombres.' '.$usuario->persona->apellido_paterno.' '.$usuario->persona->apellido_materno }}</h3>
 
           <p class="text-muted text-center">{{ $usuario->role->nombre }}</p>
+          <p class="text-muted text-center font-weight-bold">{{ $usuario->area->nombre }}</p>
           <p class="text-muted text-center">{{ $usuario->cargo->nombre }}</p>
 
         {{-- <ul class="list-group list-group-unbordered mb-3">

@@ -160,6 +160,7 @@ trait UserTrait
             'sexo' => 'required',
             'usuario_codigo' => 'required',
             'password' => 'required',
+            'area_id' => 'required',
             'cargo_id' => 'required',
             'role_id' => 'required'
         ];
@@ -189,6 +190,7 @@ trait UserTrait
         $usuario->password =Hash::make($request->password);
         $usuario->numero_celular = $request->numero_celular;
         $usuario->numero_anexo = $request->numero_anexo;
+        $usuario->area_id = $request->area_id;
         $usuario->cargo_id = $request->cargo_id;
         $usuario->role_id = $request->role_id;
         $usuario->foto = ($request->sexo=='F') ? 'user_mujer.png' : 'user_varon.png';
@@ -212,6 +214,7 @@ trait UserTrait
             'apellido_materno' => 'required',
             'sexo' => 'required',
             'usuario_codigo' => 'required',
+            'area_id' => 'required',
             'cargo_id' => 'required',
             'role_id' => 'required'
         ];
@@ -241,6 +244,7 @@ trait UserTrait
         $usuario->usuario_email = $request->usuario_email;
         $usuario->numero_celular = $request->numero_celular;
         $usuario->numero_anexo = $request->numero_anexo;
+        $usuario->area_id = $request->area_id;
         $usuario->cargo_id = $request->cargo_id;
         $usuario->role_id = $request->role_id;
         $usuario->save();

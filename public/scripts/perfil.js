@@ -221,13 +221,11 @@ function eliminarClaseInvalidPassword()
 
 function guardarContrasena(event)
 {
-
     event.preventDefault();
 
     var form = $('#form-cambiar-contrasena'),
-                url = form.attr('action'),
-                method =form.attr('method');
-
+                    url = form.attr('action'),
+                    method =form.attr('method');
 
     $.ajax({
         url : url,
