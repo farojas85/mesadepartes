@@ -30,7 +30,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('cargos', 'CargoController');
     Route::resource('tipodocumentos', 'TipoDocumentoController');
     Route::resource('areas', 'AreaController');
-
+    Route::resource('documento-tramites','DocumentoTramiteController');
 
     //Rutas Parciales
     require __DIR__.'/rutasParciales.php';

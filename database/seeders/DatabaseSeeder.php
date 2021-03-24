@@ -19,7 +19,11 @@ class DatabaseSeeder extends Seeder
             TipodocumentoSeeeder::class,
             CargoSeeder::class,
             UsuarioMasterSeeeder::class,
-            MenuSeeder::class
+            MenuSeeder::class,
+            AreaSeeder::class,
+            CargoSeeder::class,
+            DocumentoTramiteSeeder::class,
+            EstadoTramiteSeeder::class
         ]);
     }
 }

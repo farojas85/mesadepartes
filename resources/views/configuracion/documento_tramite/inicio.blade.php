@@ -3,10 +3,10 @@
         <div class="card card-outline card-info">
             <div class="card-header ">
                 <h3 class="card-title">
-                    Listado Cargos&nbsp;
+                    Listado Documentos Trámites&nbsp;
                     <button type="button" class="btn bg-maroon btn-sm rounded-pill"
-                        onclick="nuevoCargo()">
-                        <i class="fas fa-plus"></i> Nuevo Cargo
+                        onclick="nuevoDocumentoTramite()">
+                        <i class="fas fa-plus"></i> Nuevo Doc. Trám.
                     </button>
                 </h3>
             </div>
@@ -17,7 +17,7 @@
                             <div class="input-group-append">
                                 <label class="col-form-label col-form-label-sm">Mostrar&nbsp;</label>
                                 <select class="custom-select custom-select-sm form-control form-control-sm"
-                                    id="cargo-paginacion">
+                                    id="documento-tramite-paginacion" onchange="cambiarPaginacionDocumentoTramite()">
                                     <option value="5">5</option>
                                     <option value="10">10</option>
                                     <option value="25">25</option>
@@ -25,17 +25,9 @@
                                     <option value="100">100</option>
                                 </select>
                             </div>&nbsp;
-                            <select  class="form-control form-control-sm" onchange="mostrarFiltroCargo(this.value)"
-                                id="filtro-cargo">
-                                <option value="">-Filtro-</option>
-                                <option value="todos">Todos</option>
-                                <option value="habilitados">habilitados</option>
-                                <option value="eliminados">Eliminados</option>
-
-                            </select>
                             &nbsp;
                             <input type="text" name="table-search" id="table-search"
-                                class="form-control"  placeholder="Buscar..." onkeyup="buscarCargo(this.value)">
+                                class="form-control"  placeholder="Buscar..." onkeyup="buscarDocumentoTramite(this.value)">
                             <div class="input-group-append">
                                 <button type="button" class="btn btn-info">
                                     <i class="fas fa-search"></i>
@@ -52,32 +44,23 @@
                                     <tr>
                                         <th class="text-center">#</th>
                                         <th class="text-center">Nombres</th>
-                                        <th class="text-center">Estado</th>
                                         <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse ($cargos as $cargo)
+                                    @forelse ($documento_tramites as $documento_tramite)
                                     <tr>
-                                        <td class="text-center">{{  $loop->iteration-1 +$cargos->firstItem() }}</td>
-                                        <td> {{ $cargo->nombre }}</td>
-                                        <td class="text-center">
-                                            <span class="{{ $cargo->clase_estado }}">{{ $cargo->nombre_estado }}</span>
-                                        </td>
+                                        <td class="text-center">{{  $loop->iteration-1 +$documento_tramites->firstItem() }}</td>
+                                        <td> {{ $documento_tramite->nombre }}</td>
                                         <td>
-                                            @if($cargo->deleted_at == null)
-                                            <button type="button" class="btn btn-warning btn-xs btn-editar-cargo"
-                                                onclick="editarCargo({{ $cargo->id }})">
+                                            @if($documento_tramite)
+                                            <button type="button" class="btn btn-warning btn-xs btn-editar-documento_tramite"
+                                                onclick="editarDocumentoTramite({{ $documento_tramite->id }})">
                                                 <i class="fas fa-edit"></i>
                                             </button>
-                                            <button type="button" class="btn btn-danger btn-xs btn-eliminar-cargo"
-                                                onclick="eliminarCargo({{ $cargo->id }})" title="Eliminar Cargo">
+                                            <button type="button" class="btn btn-danger btn-xs btn-eliminar-documento_tramite"
+                                                onclick="eliminarDocumentoTramite({{ $documento_tramite->id }})" title="Eliminar Documento Trámite">
                                                 <i class="fas fa-trash"></i>
-                                            </button>
-                                            @else
-                                            <button type="button" class="btn bg-purple btn-xs btn-restaurar-cargo"
-                                                onclick="restaurarCargo({{ $cargo->id }})" title="Restaurar Cargo">
-                                                <i class="fas fa-trash-restore-alt"></i>
                                             </button>
                                             @endif
                                         </td>
@@ -95,18 +78,27 @@
                     </div>
                     <div class="col-md-12">
                         <ul class="pagination">
-                            @if($cargos->currentPage() > 1)
+                            @if($documento_tramites->currentPage() > 1)
                             <li class="page-item">
-                                <a href="#" aria-label="Previous" class="page-link btn">
+                                <a class="page-link btn" aria-label="First"
+                                onclick="cambiarPaginaDocumentoTramite(1)">
                                     <span><i class="fas fa-fast-backward"></i></span>
                                 </a>
                             </li>
                             @endif
-                            @for ($i = 1; $i <=$cargos->lastPage() ; $i++)
-                            <li class="page-item">
-                                <a class="page-link btn" onclick="cambiarPaginaCargo({{ $i }})">{{ $i }}</a>
+                            @for ($i = 1; $i <=$documento_tramites->lastPage() ; $i++)
+                            <li class="page-item @if($i== $documento_tramites->currentPage()) active @endif">
+                                <a class="page-link btn" onclick="cambiarPaginaDocumentoTramite({{ $i }})">{{ $i }}</a>
                             </li>
                             @endfor
+                            @if($documento_tramites->currentPage() < $documento_tramites->lastPage() )
+                            <li class="page-item">
+                                <a class="page-link btn" aria-label="First"
+                                onclick="cambiarPaginaDocumentoTramite({{ $documento_tramites->lastPage() }})">
+                                    <span><i class="fas fa-fast-forward"></i></span>
+                                </a>
+                            </li>
+                            @endif
                         </ul>
                         {{-- {{ $roles->links() }} --}}
                     </div>

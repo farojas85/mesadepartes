@@ -53,3 +53,6 @@ Route::get('tipodocumentos-eliminados','TipoDocumentoController@eliminados')->na
 Route::get('tipodocumentos-todos','TipoDocumentoController@todos')->name('tipodocumentos.todos');
 Route::post('tipodocumentos-restaurar','TipoDocumentoController@restaurar')->name('tipodocumentos.restaurar');
 
+//RUTAS CONFIGURACIION - DOCUMENTO TRAMITES
+Route::get('documento-tramites-todos','DocumentoTramiteController@todos')->name('documento-tramites.todos');
+

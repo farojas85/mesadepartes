@@ -22,6 +22,7 @@ function mostrarFiltroCargo(filtro)
 
 function buscarCargo(buscar)
 {
+    //smostrarCargosTodos(buscar)
     switch(filtro)
     {
         case 'habilitados':mostrarCargosHabilitados(buscar);break;
