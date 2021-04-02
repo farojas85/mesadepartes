@@ -17,13 +17,13 @@ class DatabaseSeeder extends Seeder
         $this->call([
             RoleSeeder::class,
             TipodocumentoSeeeder::class,
-            CargoSeeder::class,
             UsuarioMasterSeeeder::class,
             MenuSeeder::class,
             AreaSeeder::class,
             CargoSeeder::class,
             DocumentoTramiteSeeder::class,
-            EstadoTramiteSeeder::class
+            EstadoTramiteSeeder::class,
+            TipoArchivoSeeder::class,
         ]);
     }
 }

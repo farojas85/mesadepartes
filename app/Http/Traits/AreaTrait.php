@@ -21,7 +21,7 @@ trait AreaTrait
                     $query->where(DB::Raw('upper(nombre)'),'like','%'.$buscar.'%')
                         ->orWhere(DB::Raw('upper(siglas)'),'like','%'.$buscar.'%');
                 })
-                ->paginate(5);
+                ->paginate($request->paginacion);
     }
 
     public function obtenerTodos(Request $request)
@@ -34,7 +34,7 @@ trait AreaTrait
                         ->orWhere(DB::Raw('upper(siglas)'),'like','%'.$buscar.'%');
                 })
                 ->withTrashed()
-                ->paginate(5);
+                ->paginate($request->paginacion);
     }
 
     public function obtenerEliminados(Request $request)
@@ -47,7 +47,7 @@ trait AreaTrait
                         ->orWhere(DB::Raw('upper(siglas)'),'like','%'.$buscar.'%');
                 })
                 ->onlyTrashed()
-                ->paginate(5);
+                ->paginate($request->paginacion);
     }
 
     public function guardar(Request $request)

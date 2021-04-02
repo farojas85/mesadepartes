@@ -16,7 +16,8 @@
                         <div class="input-group input-group-sm">
                             <div class="input-group-append">
                                 <label class="col-form-label col-form-label-sm">Mostrar&nbsp;</label>
-                                <select class="custom-select custom-select-sm form-control form-control-sm">
+                                <select class="custom-select custom-select-sm form-control form-control-sm"
+                                id="tipodocumento-paginacion" onchange="cambiarPaginacionTipoDocumento()">
                                     <option value="5">5</option>
                                     <option value="10">10</option>
                                     <option value="25">25</option>
@@ -92,16 +93,25 @@
                         <ul class="pagination">
                             @if($tipodocumentos->currentPage() > 1)
                             <li class="page-item">
-                                <a href="#" aria-label="Previous" class="page-link btn">
+                                <a class="page-link btn" aria-label="First"
+                                onclick="cambiarPaginaTipoDocumento(1)">
                                     <span><i class="fas fa-fast-backward"></i></span>
                                 </a>
                             </li>
                             @endif
                             @for ($i = 1; $i <=$tipodocumentos->lastPage() ; $i++)
-                            <li class="page-item">
+                            <li class="page-item @if($i== $tipodocumentos->currentPage()) active @endif">
                                 <a class="page-link btn" onclick="cambiarPaginaTipoDocumento({{ $i }})">{{ $i }}</a>
                             </li>
                             @endfor
+                            @if($tipodocumentos->currentPage() < $tipodocumentos->lastPage() )
+                            <li class="page-item">
+                                <a class="page-link btn" aria-label="First"
+                                onclick="cambiarPaginaTipoDocumento({{ $tipodocumentos->lastPage() }})">
+                                    <span><i class="fas fa-fast-forward"></i></span>
+                                </a>
+                            </li>
+                            @endif
                         </ul>
                         {{-- {{ $roles->links() }} --}}
                     </div>

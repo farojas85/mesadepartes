@@ -6,6 +6,7 @@ use App\Models\DocumentoTramite;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Traits\DocumentoTramiteTrait;
+use App\Models\TipoTramite;
 
 class DocumentoTramiteController extends Controller
 {
@@ -142,5 +143,9 @@ class DocumentoTramiteController extends Controller
             'ok' => 1,
             'mensaje' => 'Documento Trámite eliminado Satisfactoriamente'
         ], 200);
+    }
+
+    public function listar(){
+        return DocumentoTramite::select('id','nombre')->get();
     }
 }

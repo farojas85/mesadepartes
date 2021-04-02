@@ -3,10 +3,10 @@
         <div class="card card-outline card-info">
             <div class="card-header ">
                 <h3 class="card-title">
-                    Listado &Aacute;reas&nbsp;
+                    Listado Tipo Trámites&nbsp;
                     <button type="button" class="btn bg-maroon btn-sm rounded-pill"
-                        onclick="nuevoArea()">
-                        <i class="fas fa-plus"></i> Nuevo &Aacute;rea
+                        onclick="nuevoTipoTramite()">
+                        <i class="fas fa-plus"></i> Nuevo Tipo Trámite
                     </button>
                 </h3>
             </div>
@@ -17,7 +17,7 @@
                             <div class="input-group-append">
                                 <label class="col-form-label col-form-label-sm">Mostrar&nbsp;</label>
                                 <select class="custom-select custom-select-sm form-control form-control-sm"
-                                id="area-paginacion" onchange="cambiarPaginacionArea()">
+                                    id="tipoTramite-paginacion" onchange="cambiarPaginacionTipoTramite()">
                                     <option value="5">5</option>
                                     <option value="10">10</option>
                                     <option value="25">25</option>
@@ -25,17 +25,9 @@
                                     <option value="100">100</option>
                                 </select>
                             </div>&nbsp;
-                            <select  class="form-control form-control-sm" onchange="mostrarFiltroArea(this.value)"
-                                id="filtro-area">
-                                <option value="">-Filtro-</option>
-                                <option value="todos">Todos</option>
-                                <option value="habilitados">habilitados</option>
-                                <option value="eliminados">Eliminados</option>
-
-                            </select>
                             &nbsp;
                             <input type="text" name="table-search" id="table-search"
-                                class="form-control"  placeholder="Buscar..." onkeyup="buscarArea(this.value)">
+                                class="form-control"  placeholder="Buscar..." onchange="buscarTipoTramite(this.value)">
                             <div class="input-group-append">
                                 <button type="button" class="btn btn-info">
                                     <i class="fas fa-search"></i>
@@ -51,31 +43,30 @@
                                 <thead class="bg-navy">
                                     <tr>
                                         <th class="text-center">#</th>
+                                        <th class="text-center">Documento Tr&aacute;mite</th>
                                         <th class="text-center">Nombres</th>
-                                        <th class="text-center">Siglas</th>
+                                        <th class="text-center">Estado</th>
                                         <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse ($areas as $area)
+                                    @forelse ($tipoTramites as $tipoTramite)
                                     <tr>
-                                        <td class="text-center">{{  $loop->iteration-1 +$areas->firstItem() }}</td>
-                                        <td> {{ $area->nombre }}</td>
-                                        <td> {{ $area->siglas }}</td>
+                                        <td class="text-center">{{  $loop->iteration-1 +$tipoTramites->firstItem() }}</td>
+                                        <td>{{ $tipoTramite->documento_tramite->nombre }}</td>
+                                        <td> {{ $tipoTramite->nombre }}</td>
+                                        <td class="text-center">
+                                            <span class="{{ $tipoTramite->estado_clase }}">{{ $tipoTramite->estado_nombre }}</span>
+                                        </td>
                                         <td>
-                                            @if($area->deleted_at == null)
-                                            <button type="button" class="btn btn-warning btn-xs btn-editar-area"
-                                                onclick="editarArea({{ $area->id }})">
+                                            @if($tipoTramite)
+                                            <button type="button" class="btn btn-warning btn-xs btn-editar-tipoTramite"
+                                                onclick="editarTipoTramite({{ $tipoTramite->id }})">
                                                 <i class="fas fa-edit"></i>
                                             </button>
-                                            <button type="button" class="btn btn-danger btn-xs btn-eliminar-area"
-                                                onclick="eliminarArea({{ $area->id }})" title="Eliminar Area">
+                                            <button type="button" class="btn btn-danger btn-xs btn-eliminar-tipoTramite"
+                                                onclick="eliminarTipoTramite({{ $tipoTramite->id }})" title="Eliminar Tipo Trámite">
                                                 <i class="fas fa-trash"></i>
-                                            </button>
-                                            @else
-                                            <button type="button" class="btn bg-purple btn-xs btn-restaurar-area"
-                                                onclick="restaurarArea({{ $area->id }})" title="Restaurar Area">
-                                                <i class="fas fa-trash-restore-alt"></i>
                                             </button>
                                             @endif
                                         </td>
@@ -93,23 +84,23 @@
                     </div>
                     <div class="col-md-12">
                         <ul class="pagination">
-                            @if($areas->currentPage() > 1)
+                            @if($tipoTramites->currentPage() > 1)
                             <li class="page-item">
                                 <a class="page-link btn" aria-label="First"
-                                onclick="cambiarPaginaArea(1)">
+                                onclick="cambiarPaginaTipoTramite(1)">
                                     <span><i class="fas fa-fast-backward"></i></span>
                                 </a>
                             </li>
                             @endif
-                            @for ($i = 1; $i <=$areas->lastPage() ; $i++)
-                            <li class="page-item @if($i== $areas->currentPage()) active @endif">
-                                <a class="page-link btn" onclick="cambiarPaginaArea({{ $i }})">{{ $i }}</a>
+                            @for ($i = 1; $i <=$tipoTramites->lastPage() ; $i++)
+                            <li class="page-item @if($i== $tipoTramites->currentPage()) active @endif">
+                                <a class="page-link btn" onclick="cambiarPaginaTipoTramite({{ $i }})">{{ $i }}</a>
                             </li>
                             @endfor
-                            @if($areas->currentPage() < $areas->lastPage() )
+                            @if($tipoTramites->currentPage() < $tipoTramites->lastPage() )
                             <li class="page-item">
                                 <a class="page-link btn" aria-label="First"
-                                onclick="cambiarPaginaArea({{ $areas->lastPage() }})">
+                                onclick="cambiarPaginaTipoTramite({{ $tipoTramites->lastPage() }})">
                                     <span><i class="fas fa-fast-forward"></i></span>
                                 </a>
                             </li>
@@ -124,3 +115,8 @@
         </div>
     </div>
 </div>
+
+
+
+
+

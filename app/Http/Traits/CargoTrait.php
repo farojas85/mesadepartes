@@ -25,7 +25,7 @@ trait CargoTrait
                             when estado = 1 then 'badge badge-success'
                             end as clase_estado"))
                 ->where(DB::Raw('upper(nombre)'),'like','%'.$buscar.'%')
-                ->paginate(5);
+                ->paginate($request->paginacion);
     }
 
     public function obtenerTodos(Request $request)
@@ -41,7 +41,7 @@ trait CargoTrait
                             when estado = 1 then 'badge badge-success'
                             end as clase_estado"))
                 ->where(DB::Raw('upper(nombre)'),'like','%'.$buscar.'%')
-                ->withTrashed()->paginate(5);
+                ->withTrashed()->paginate($request->paginacion);
 
     }
 
@@ -58,7 +58,7 @@ trait CargoTrait
                      when estado = 1 then 'badge badge-success'
                      end as clase_estado"))
                 ->where(DB::Raw('upper(nombre)'),'like','%'.$buscar.'%')
-                ->onlyTrashed()->paginate(5);
+                ->onlyTrashed()->paginate($request->paginacion);
 
     }
 

@@ -1,8 +1,22 @@
 function cambiarPaginaCargo(pagina)
 {
+    paginas = pagina
     $.ajax({
         //busqueda=
-        url: 'cargos-'+filtro+'?page='+pagina,
+        url: 'cargos-todos'+'?page='+paginas+'&paginacion='+paginacion,
+        type:"GET",
+        success: function (respuesta) {
+            $('#detalle-tabla').html(respuesta)
+        }
+    });
+}
+
+function cambiarPaginacionCargo()
+{
+    paginacion = $('#cargo-paginacion').val()
+    $.ajax({
+        //busqueda=
+        url: 'cargos-todos'+'?page='+paginas+'&paginacion='+paginacion,
         type:"GET",
         success: function (respuesta) {
             $('#detalle-tabla').html(respuesta)

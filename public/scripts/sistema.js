@@ -1,6 +1,8 @@
 let estadoCrud =''
 let csrf_token = $('meta[name="csrf-token"]').attr('content');
 let filtro = 'habilitados'
+let paginacion = 5
+let paginas = 1
 window.tituloVista ='Roles';
 
 function cambiarVista(vista)

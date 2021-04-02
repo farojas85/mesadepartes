@@ -17,7 +17,7 @@ trait TipoDocumentotrait
         $buscar = $this->convertirMayuscula($request);
            return TipoDocumento::select('id','nombre','deleted_at')
                 ->where(DB::Raw('upper(nombre)'),'like','%'.$buscar.'%')
-                ->paginate(5);
+                ->paginate($request->paginacion);
 
     }
 
@@ -26,7 +26,7 @@ trait TipoDocumentotrait
         $buscar = $this->convertirMayuscula($request);
         return  TipoDocumento::select( 'id','nombre','deleted_at')
                 ->where(DB::Raw('upper(nombre)'),'like','%'.$buscar.'%')
-                ->onlyTrashed()->paginate(5);
+                ->onlyTrashed()->paginate($request->paginacion);
 
     }
 
@@ -35,7 +35,7 @@ trait TipoDocumentotrait
         $buscar = $this->convertirMayuscula($request);
            return TipoDocumento::select('id','nombre','deleted_at')
                 ->where(DB::Raw('upper(nombre)'),'like','%'.$buscar.'%')
-                ->withTrashed()->paginate(5);
+                ->withTrashed()->paginate($request->paginacion);
 
     }
 

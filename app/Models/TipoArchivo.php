@@ -6,19 +6,19 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class DocumentoTramite extends Model
+class TipoArchivo extends Model
 {
     use HasFactory;
 
-    protected $fillable=['id','nombre'];
+    protected $fillable =['id','nombre'];
 
     /**
-     * Get all of the tramites for the DocumentoTramite
+     * Get all of the archivos for the TipoArchivo
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function tipo_tramites(): HasMany
+    public function archivos(): HasMany
     {
-        return $this->hasMany(TipoTramite::class);
+        return $this->hasMany(Archivos::class);
     }
 }

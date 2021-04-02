@@ -39,6 +39,10 @@
                     onclick="cambiarVista('documento-tramites')">
                     <i class="fab fa-dochub"></i> Doc. Trám.
                 </button>
+                <button type="button" class="btn btn-app bg-purple"
+                    onclick="cambiarVista('tipo-tramite')">
+                    <i class="fab fa-dochub"></i> Tip. Trám.
+                </button>
             </div>
             <div class="card-body">
                 <div class="tab-content" id="tab-content">

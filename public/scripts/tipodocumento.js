@@ -10,9 +10,23 @@
 
 function cambiarPaginaTipoDocumento(pagina)
 {
+    paginas = pagina
     $.ajax({
         //busqueda=
-        url: 'tipodocumentos-'+filtro+'?page='+pagina,
+        url: 'tipodocumentos-'+filtro+'?page='+paginas+'&paginacion='+paginacion,
+        type:"GET",
+        success: function (respuesta) {
+            $('#detalle-tabla').html(respuesta)
+        }
+    });
+}
+
+function cambiarPaginacionTipoDocumento()
+{
+    paginacion = $('#tipodocumento-paginacion').val()
+    $.ajax({
+        //busqueda=
+        url: 'tipodocumentos-'+filtro+'?page='+paginas+'&paginacion='+paginacion,
         type:"GET",
         success: function (respuesta) {
             $('#detalle-tabla').html(respuesta)

@@ -9,7 +9,7 @@ use Peru\Http\ContextClient;
 use Peru\Jne\{Dni, DniParser};
 use Peru\Sunat\{HtmlParser, Ruc, RucParser};
 
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use Storage;
 use File;
 use App\Models\Role;
@@ -166,7 +166,7 @@ trait UserTrait
         ];
 
         $mensaje = [
-            'required' => '* Dato Obligator'
+            'required' => '* Dato Obligatorio'
         ];
 
         $this->validate($request,$regla,$mensaje);

@@ -17,7 +17,7 @@
                             <div class="input-group-append">
                                 <label class="col-form-label col-form-label-sm">Mostrar&nbsp;</label>
                                 <select class="custom-select custom-select-sm form-control form-control-sm"
-                                    id="cargo-paginacion">
+                                    id="cargo-paginacion" onchange="cambiarPaginacionCargo()">
                                     <option value="5">5</option>
                                     <option value="10">10</option>
                                     <option value="25">25</option>
@@ -97,16 +97,25 @@
                         <ul class="pagination">
                             @if($cargos->currentPage() > 1)
                             <li class="page-item">
-                                <a href="#" aria-label="Previous" class="page-link btn">
+                                <a class="page-link btn" aria-label="First"
+                                onclick="cambiarPaginaCargo(1)">
                                     <span><i class="fas fa-fast-backward"></i></span>
                                 </a>
                             </li>
                             @endif
                             @for ($i = 1; $i <=$cargos->lastPage() ; $i++)
-                            <li class="page-item">
+                            <li class="page-item @if($i== $cargos->currentPage()) active @endif">
                                 <a class="page-link btn" onclick="cambiarPaginaCargo({{ $i }})">{{ $i }}</a>
                             </li>
                             @endfor
+                            @if($cargos->currentPage() < $cargos->lastPage() )
+                            <li class="page-item">
+                                <a class="page-link btn" aria-label="First"
+                                onclick="cambiarPaginaCargo({{ $cargos->lastPage() }})">
+                                    <span><i class="fas fa-fast-forward"></i></span>
+                                </a>
+                            </li>
+                            @endif
                         </ul>
                         {{-- {{ $roles->links() }} --}}
                     </div>

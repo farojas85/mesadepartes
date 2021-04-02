@@ -5,24 +5,25 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Tramite extends Model
 {
     use HasFactory,SoftDeletes;
 
     protected $fillable = [
-        'id','anio','codigo_tramite','documento_tramite_id',
-        'sumilla','numero_folios','archivo','asunto','estado_tramite_id'
+        'id','anio','codigo_tramite','tipo_tramite_id','numero_folios',
+        'asunto','estado_tramite_id'
     ];
 
     /**
-     * Get the documento_tramite that owns the Tramite
-     *
+     * Get the tipo_tramite that owns the Tramit
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function documento_tramite(): BelongsTo
+    public function tipo_tramite(): BelongsTo
     {
-        return $this->belongsTo(DocumentoTramite::Class);
+        return $this->belongsTo(TipoTramite::class);
     }
 
     /**
@@ -35,4 +36,13 @@ class Tramite extends Model
         return $this->belongsTo(EstadoTramite::class);
     }
 
+    /**
+     * Get all of the movimientos for the Tramite
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function movimientos(): HasMany
+    {
+        return $this->hasMany(Mivimiento::class);
+    }
 }

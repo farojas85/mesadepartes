@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Support\Facades\Auth;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -31,6 +31,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('tipodocumentos', 'TipoDocumentoController');
     Route::resource('areas', 'AreaController');
     Route::resource('documento-tramites','DocumentoTramiteController');
+    Route::resource('tramite', 'TramiteController');
+    Route::resource('tipo-tramite', 'TipoTramiteController');
 
     //Rutas Parciales
     require __DIR__.'/rutasParciales.php';

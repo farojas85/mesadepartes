@@ -2,16 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Archivo;
 use Illuminate\Http\Request;
 
-use App\Models\Tramite;
-use App\Models\DocumentoTramite;
-use App\Http\Traits\TramiteTrait;
-
-
-class TramiteController extends Controller
+class ArchivoController extends Controller
 {
-    use TramiteTrait;
     /**
      * Display a listing of the resource.
      *
@@ -19,7 +14,7 @@ class TramiteController extends Controller
      */
     public function index()
     {
-        return view('tramite.inicio');
+        //
     }
 
     /**
@@ -29,10 +24,7 @@ class TramiteController extends Controller
      */
     public function create()
     {
-        $estadoCrud = 'nuevo';
-
-        $documentoTramites = DocumentoTramite::select('id','nombre')->get();
-        return view('tramite.create', compact('estadoCrud','documentoTramites'));
+        //
     }
 
     /**
@@ -49,10 +41,10 @@ class TramiteController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Tramite  $tramite
+     * @param  \App\Models\Archivo  $archivo
      * @return \Illuminate\Http\Response
      */
-    public function show(Tramite $tramite)
+    public function show(Archivo $archivo)
     {
         //
     }
@@ -60,10 +52,10 @@ class TramiteController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Tramite  $tramite
+     * @param  \App\Models\Archivo  $archivo
      * @return \Illuminate\Http\Response
      */
-    public function edit(Tramite $tramite)
+    public function edit(Archivo $archivo)
     {
         //
     }
@@ -72,10 +64,10 @@ class TramiteController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Tramite  $tramite
+     * @param  \App\Models\Archivo  $archivo
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Tramite $tramite)
+    public function update(Request $request, Archivo $archivo)
     {
         //
     }
@@ -83,10 +75,10 @@ class TramiteController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Tramite  $tramite
+     * @param  \App\Models\Archivo  $archivo
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Tramite $tramite)
+    public function destroy(Archivo $archivo)
     {
         //
     }

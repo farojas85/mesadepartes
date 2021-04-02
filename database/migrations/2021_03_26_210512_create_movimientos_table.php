@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTramitesTable extends Migration
+class CreateMovimientosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,13 @@ class CreateTramitesTable extends Migration
      */
     public function up()
     {
-        Schema::create('tramites', function (Blueprint $table) {
+        Schema::create('movimientos', function (Blueprint $table) {
             $table->id();
-            $table->unsignedSmallInteger('anio');
-            $table->string('codigo_tramite',20);
-            $table->foreignId('tipo_tramite_id')->nullable()->constrained('tipo_tramites');
-            //$table->string('sumilla',255);
-            $table->unsignedInteger('numero_folios');
-            $table->text('asunto');
-            $table->foreignId('user_id')->nullable()->constrained('users');
+            $table->foreignId('tramite_id')->nullable()->constrained('tramites');
+            $table->unsignedBigInteger('area_destino');
+            $table->date('fecha');
+            $table->time('hora');
+            $table->string('observaciones',255);
             $table->foreignId('estado_tramite_id')->nullable()->constrained('estado_tramites');
             $table->timestamps();
             $table->softDeletes();
@@ -35,6 +33,6 @@ class CreateTramitesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tramites');
+        Schema::dropIfExists('movimientos');
     }
 }

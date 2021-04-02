@@ -1,8 +1,22 @@
 function cambiarPaginaArea(pagina)
 {
+    paginas = pagina
     $.ajax({
         //busqueda=
-        url: 'areas-'+filtro+'?page='+pagina,
+        url: 'areas-'+filtro+'?page='+paginas+'&paginacion='+paginacion,
+        type:"GET",
+        success: function (respuesta) {
+            $('#detalle-tabla').html(respuesta)
+        }
+    });
+}
+
+function cambiarPaginacionArea()
+{
+    paginacion = $('#area-paginacion').val()
+    $.ajax({
+        //busqueda=
+        url: 'areas-'+filtro+'?page='+paginas+'&paginacion='+paginacion,
         type:"GET",
         success: function (respuesta) {
             $('#detalle-tabla').html(respuesta)

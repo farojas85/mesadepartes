@@ -55,4 +55,8 @@ Route::post('tipodocumentos-restaurar','TipoDocumentoController@restaurar')->nam
 
 //RUTAS CONFIGURACIION - DOCUMENTO TRAMITES
 Route::get('documento-tramites-todos','DocumentoTramiteController@todos')->name('documento-tramites.todos');
+Route::get('documento-tramites-listar','DocumentoTramiteController@listar')->name('documento-tramites.listar');
 
+//RUTAS TIPO TRAMITES
+Route::get('tipo-tramite-listar','TramiteController@obtenerTipoTramitePorDocumentoTramite')->name('tipo-tramite.listar');
+Route::get('tipo-tramite-todos','TipoTramiteController@todos')->name('tipo-tramite.todos');

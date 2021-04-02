@@ -44,6 +44,12 @@ script2.src='scripts/documento_tramite.js'
 
 document.head.appendChild(script2)
 
+var script2= document.createElement('script')
+
+script2.src='scripts/tipotramite.js'
+
+document.head.appendChild(script2)
+
 $(function() {
     $.ajax({
         url: 'areas?buscar=',
