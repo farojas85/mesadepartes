@@ -8,6 +8,8 @@
 </script>
 <!-- Bootstrap 4 -->
 <script src="adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- Select2 -->
+<script src="adminlte/plugins/select2/js/select2.full.min.js"></script>
 <!-- SweetAlert2 -->
 <script src="adminlte/plugins/sweetalert2/sweetalert2.min.js"></script>
 <!-- Toastr -->
@@ -23,6 +25,7 @@
 <script src="adminlte/plugins/jquery-knob/jquery.knob.min.js"></script>
 <!-- daterangepicker -->
 <script src="adminlte/plugins/moment/moment.min.js"></script>
+
 <script src="adminlte/plugins/daterangepicker/daterangepicker.js"></script>
 <!-- Tempusdominus Bootstrap 4 -->
 <script src="adminlte/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
@@ -30,6 +33,8 @@
 <script src="adminlte/plugins/summernote/summernote-bs4.min.js"></script>
 <!-- overlayScrollbars -->
 <script src="adminlte/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+<!-- dropzonejs -->
+<script src="adminlte/plugins/dropzone/min/dropzone.min.js"></script>
 <!-- AdminLTE App -->
 <script src="adminlte/dist/js/adminlte.js"></script>
 <!-- AdminLTE for demo purposes -->

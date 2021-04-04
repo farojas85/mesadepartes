@@ -6,15 +6,15 @@
         <div class="row mb-2">
             <div class="col-sm-6">
                 <h1 class="m-0"><i class="fas fa-file-invoice"></i> Tr&aacute;mite</h1>
-            </div><!-- /.col -->
+            </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="/home">Home</a></li>
                     <li class="breadcrumb-item active">Tr&aacute;mite</li>
                 </ol>
-            </div><!-- /.col -->
-        </div><!-- /.row -->
-    </div><!-- /.container-fluid -->
+            </div>
+        </div>
+    </div>
 </div>
 @endsection
 
@@ -38,6 +38,8 @@
         </div>
     </div>
 </div>
+
+@include('tramite.create')
 @endsection
 
 @section('scripts')

@@ -17,10 +17,8 @@ trait TramiteTrait
 
     public function obtenerTipoTramitePorDocumentoTramite(Request $request)
     {
-
-        $tipoTramites = TipoTramite::select('id','nombre')
-                        ->where('documento_tramite_id',$request->docummento_tramite_id)->get();
-
-        return view('tramite.partials.tipo-tramite-lista',compact('tipoTramites'));
+        return TipoTramite::select('id','nombre')
+                ->where('documento_tramite_id',$request->documento_tramite_id)->get();
+        //return view('tramite.partials.tipo-tramite-lista',compact('tipoTramites'));
     }
 }

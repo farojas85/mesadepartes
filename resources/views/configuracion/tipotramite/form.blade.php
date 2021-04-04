@@ -17,19 +17,13 @@
 <div class="form-group row">
     <label for="" class="col-form-label col-form-label-sm font-weight-bold col-md-2">Nombre</label>
     <div class="col-md-9">
-        <input type="text" class="form-control form-control-sm"
-            id="nombre" name="nombre" placeholder="Ingrese Nombre de Tipo Trámite" @if($estadoCrud=='editar') value="{{ $tipoTramite->nombre }}" @endif>
-        @error('nombre')
-            <span class="invalid-feedback" tipoTramite="alert">
-                <strong>{{ $message }}</strong>
-            </span>
-        @enderror
+        <textarea class="form-control form-control-sm" rows='3'
+            id="nombre" name="nombre" placeholder="Ingrese Nombre de Tipo Trámite">@if($estadoCrud=='editar'){{$tipoTramite->nombre}}@endif</textarea>
     </div>
 </div>
 <div class="form-group row">
     <label for="" class="col-form-label col-form-label-sm font-weight-bold col-md-2">Estado</label>
     <div class="col-md-9">
-
         <div class="custom-control custom-checkbox">
             <input class="custom-control-input" type="checkbox" id="estado" name="estado"
                 @if($estadoCrud=='editar')
