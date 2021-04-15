@@ -19,7 +19,7 @@ class CreateMovimientosTable extends Migration
             $table->unsignedBigInteger('area_destino');
             $table->date('fecha');
             $table->time('hora');
-            $table->string('observaciones',255);
+            $table->string('observaciones',255)->nullable();
             $table->foreignId('estado_tramite_id')->nullable()->constrained('estado_tramites');
             $table->timestamps();
             $table->softDeletes();

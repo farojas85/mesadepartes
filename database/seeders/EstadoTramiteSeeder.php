@@ -13,7 +13,7 @@ class EstadoTramiteSeeder extends Seeder
      */
     public function run()
     {
-        $estado = EstadoTramite::firstOrCreate(['nombre'=>'Pendiente', 'clase' =>'badge badge-danger']);
+        $estado = EstadoTramite::firstOrCreate(['nombre'=>'Generado', 'clase' =>'badge badge-danger']);
         $estado = EstadoTramite::firstOrCreate(['nombre'=>'Derivado', 'clase' =>'badge badge-orange']);
         $estado = EstadoTramite::firstOrCreate(['nombre'=>'Proceso', 'clase' =>'badge badge-primary']);
         $estado = EstadoTramite::firstOrCreate(['nombre'=>'Aceptado', 'clase' =>'badge bg-lime']);

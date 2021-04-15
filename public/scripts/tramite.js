@@ -1,4 +1,10 @@
+let estadoCrud =''
+
 $(function () {
+
+    bsCustomFileInput.init();
+
+    $('#archivo').val('');
 
     $('.select2').select2({
         placeholder: 'Seleccionar Tipo'
@@ -10,70 +16,18 @@ $(function () {
         locale:'es',
         format: 'YYYY-MM-DD HH:mm:ss'
     })
+
 })
-
-// DropzoneJS Demo Code Start
-Dropzone.autoDiscover = false
-
-// Get the template HTML and remove it from the doumenthe template HTML and remove it from the doument
-var previewNode = document.querySelector("#template")
-previewNode.id = ""
-var previewTemplate = previewNode.parentNode.innerHTML
-previewNode.parentNode.removeChild(previewNode)
-
-var myDropzone = new Dropzone(document.body, { // Make the whole body a dropzone
-    url: "/target-url", // Set the url
-    thumbnailWidth: 80,
-    thumbnailHeight: 80,
-    parallelUploads: 20,
-    previewTemplate: previewTemplate,
-    autoQueue: false, // Make sure the files aren't queued until manually added
-    previewsContainer: "#previews", // Define the container to display the previews
-    clickable: ".fileinput-button" // Define the element that should be used as click trigger to select files.
-})
-
-
-
-myDropzone.on("addedfile", function(file) {
-    // Hookup the start button
-    file.previewElement.querySelector(".start").onclick = function() { myDropzone.enqueueFile(file) }
-})
-
-// Update the total progress bar
-myDropzone.on("totaluploadprogress", function(progress) {
-    document.querySelector("#total-progress .progress-bar").style.width = progress + "%"
-})
-
-myDropzone.on("sending", function(file) {
-    // Show the total progress bar when upload starts
-    document.querySelector("#total-progress").style.opacity = "1"
-    // And disable the start button
-    file.previewElement.querySelector(".start").setAttribute("disabled", "disabled")
-})
-
-// Hide the total progress bar when nothing's uploading anymore
-myDropzone.on("queuecomplete", function(progress) {
-    document.querySelector("#total-progress").style.opacity = "0"
-})
-
-  // Setup the buttons for all transfers
-  // The "add files" button doesn't need to be setup because the config
-  // `clickable` has already been specified.
-document.querySelector("#actions .start").onclick = function() {
-    myDropzone.enqueueFiles(myDropzone.getFilesWithStatus(Dropzone.ADDED))
-}
-document.querySelector("#actions .cancel").onclick = function() {
-    myDropzone.removeAllFiles(true)
-}
-
-let estadoCrud =''
 
 function limpiar()
 {
+    $('#form-tramite')[0].reset()
     $('#fecha_hora').val('')
     $("select#documento_tramite_id").prop('selectedIndex', 0);
     $("#tipo_tramite_id").empty();
     $('#asunto').val('')
+    $('#numero_folios').val('1')
+    $('#archivo').val('')
 }
 function nuevoTramite()
 {
@@ -128,4 +82,84 @@ function obtenerTipoTramiteLista(documentoTramite)
             });
         }
     });
+}
+
+
+function eliminarClaseInvalid()
+{
+    $('.error-mensaje').remove()
+    $('#fecha_hora').removeClass('is-invalid');
+    $('#archivo').removeClass('is-invalid');
+    $('#documento_tramite_id').removeClass('is-invalid');
+    $('#tipo_tramite_id').removeClass('is-invalid');
+    $('#asunto').removeClass('is-invalid');
+    $('#numero_folios').removeClass('is-invalid');
+}
+
+function guardarTramite(event)
+{
+    event.preventDefault();
+
+    var form = $('#form-tramite'),
+            url = form.attr('action'),
+            method =form.attr('method');
+
+    var datos  = new FormData()
+
+    datos.append('archivo' ,$('#archivo')[0].files[0])
+
+    $.ajax({
+        url : url+'?'+form.serialize(),
+        method: method,
+        data :datos,
+        processData: false,
+        contentType: false,
+        success: function (respuesta) {
+            //console.log(respuesta)
+            if(respuesta.ok ==1)
+            {
+                eliminarClaseInvalid()
+                $('#modal-tramite').modal('hide')
+
+                Swal.fire({
+                    title: 'Tramites',
+                    text: respuesta.mensaje,
+                    icon: 'success',
+                    confirmButtonText: 'Aceptar'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href='tramite'
+                    }
+                })
+            }
+            else if(respuesta.ok == 0)
+            {
+                eliminarClaseInvalid()
+                $('#modal-tramite').modal('hide')
+                Swal.fire({
+                    title: 'Tramites',
+                    text: respuesta.mensaje,
+                    icon: 'warning',
+                    confirmButtonText: 'Aceptar'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href='tramite'
+                    }
+                })
+            }
+        },
+        error : function (xhr) {
+            var res = xhr.responseJSON;
+            //console.clear()
+            eliminarClaseInvalid()
+
+            if ($.isEmptyObject(res) == false) {
+                $.each(res.errors, function (key, value) {
+                    $('#' + key).addClass('is-invalid')
+                        .closest('.mensaje-error')
+                        .append('<small class="text-danger error-mensaje">' + value + '</small>');
+                });
+            }
+        }
+    })
 }

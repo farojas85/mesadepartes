@@ -19,4 +19,14 @@ class Archivo extends Model
     {
         return $this->belongsTo(TipoArchivo::class, );
     }
+
+    /**
+     * Get the tramite that owns the Archivo
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function tramite(): BelongsTo
+    {
+        return $this->belongsTo(Tramite::class);
+    }
 }

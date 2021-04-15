@@ -1,10 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
-use Auth;
-use Storage;
-use File;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
+
 use App\Models\Role;
 use App\Models\Area;
 use App\Models\Cargo;
@@ -236,6 +238,7 @@ class UserController extends Controller
             ], 200);
 
         } else {
+
             $validator = Validator::make($request->all(), [
                 'foto' => 'required|file',
             ]);

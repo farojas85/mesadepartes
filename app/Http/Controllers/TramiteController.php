@@ -43,7 +43,7 @@ class TramiteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return $this->guardarTramite($request);
     }
 
     /**

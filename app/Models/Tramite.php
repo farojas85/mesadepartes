@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\DB;
 
 class Tramite extends Model
 {
@@ -37,12 +38,36 @@ class Tramite extends Model
     }
 
     /**
+     * Get all of the archivos for the Tramite
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function archivos(): HasMany
+    {
+        return $this->hasMany(Archivo::class);
+    }
+    /**
      * Get all of the movimientos for the Tramite
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function movimientos(): HasMany
     {
-        return $this->hasMany(Mivimiento::class);
+        return $this->hasMany(Movimiento::class);
+    }
+
+    public static function generarCodigo(int $anio) : string
+    {
+        //E2021-000000001
+        $maxId = Tramite::select('codigo_tramite')
+                    ->where('anio','=',$anio)->orderBy('codigo_tramite','desc')->first();
+
+        if(!$maxId)
+        {
+            return 'E'.$anio.'-'.str_pad(1,9,"0",STR_PAD_LEFT);
+        }
+
+        $maxId->codigo_tramite +=1;
+        return $maxId->codigo_tramite;
     }
 }

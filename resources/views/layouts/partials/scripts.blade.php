@@ -6,8 +6,13 @@
 <script>
     $.widget.bridge('uibutton', $.ui.button)
 </script>
+
+<!-- bs-custom-file-input -->
+<script src="adminlte/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
 <!-- Bootstrap 4 -->
 <script src="adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- BS-Stepper -->
+<script src="adminlte/plugins/bs-stepper/js/bs-stepper.min.js"></script>
 <!-- Select2 -->
 <script src="adminlte/plugins/select2/js/select2.full.min.js"></script>
 <!-- SweetAlert2 -->
@@ -33,8 +38,7 @@
 <script src="adminlte/plugins/summernote/summernote-bs4.min.js"></script>
 <!-- overlayScrollbars -->
 <script src="adminlte/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
-<!-- dropzonejs -->
-<script src="adminlte/plugins/dropzone/min/dropzone.min.js"></script>
+
 <!-- AdminLTE App -->
 <script src="adminlte/dist/js/adminlte.js"></script>
 <!-- AdminLTE for demo purposes -->

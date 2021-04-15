@@ -1,5 +1,12 @@
 @extends('layouts.master')
 
+@section('estilos')
+<style>
+    .custom-file-input ~ .custom-file-label::after {
+        content: "Escoger";
+    }
+</style>
+@endsection
 @section('contenido-cabecera')
 <div class="content-header">
     <div class="container-fluid">
