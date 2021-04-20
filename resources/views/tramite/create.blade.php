@@ -98,7 +98,7 @@
             </div>
             <div class="modal-footer">
                 <button type="submit" class="btn btn-success" onclick="guardarTramite(event)">
-                    <i class="fas fa-cloud-upload-alt"></i> Guardar
+                    <i class="fas fa-save"></i> Guardar
                 </button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">
                     <i class="fas fa-times"></i> Cancelar

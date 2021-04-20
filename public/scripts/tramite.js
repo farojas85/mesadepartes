@@ -1,4 +1,11 @@
 let estadoCrud =''
+let csrf_token = $('meta[name="csrf-token"]').attr('content');
+let filtro = 'habilitados'
+let paginacion = 5
+let paginas = 1
+window.tituloVista ='Cargos';
+
+
 
 $(function () {
 
@@ -18,6 +25,21 @@ $(function () {
     })
 
 })
+
+
+function cambiarPaginaTramite(pagina)
+{
+    paginas = pagina
+    $.ajax({
+        url: 'cargos-'+filtro+'?page='+paginas+'&paginacion='+paginacion,
+        type:"GET",
+        success: function (respuesta) {
+            $('#detalle-tabla').html(respuesta)
+        }
+    });
+}
+
+
 
 function limpiar()
 {

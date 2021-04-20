@@ -56,6 +56,16 @@ class Tramite extends Model
         return $this->hasMany(Movimiento::class);
     }
 
+    /**
+     * Get the user that owns the Tramite
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public static function generarCodigo(int $anio) : string
     {
         //E2021-000000001

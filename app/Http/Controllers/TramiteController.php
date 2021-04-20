@@ -17,9 +17,11 @@ class TramiteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('tramite.inicio');
+        $tramites = $this->obtenerHabilitados($request);
+
+        return view('tramite.inicio',compact('tramites'));
     }
 
     /**

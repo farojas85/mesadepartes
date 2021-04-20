@@ -13,11 +13,26 @@ use App\Models\Archivo;
 use App\Models\Persona;
 use App\Models\Movimiento;
 use App\Models\Area;
+use App\Models\User;
 use App\Http\Traits\HelperTrait;
 
 
 trait TramiteTrait
 {
+    use HelperTrait;
+
+    public function obtenerHabilitados(Request $request)
+    {
+        $buscar = $this->convertirMayuscula($request);
+        $paginacion = (!$request->paginacion) ? 5 : $request->paginacion;
+
+        return Tramite::with([
+                    'user.persona:id,nombres,apellido_paterno,apellido_materno',
+                    'tipo_tramite:id,nombre','estado_tramite:id,nombre,clase'
+                ])
+                ->paginate($paginacion);
+    }
+
     public function obtenerMaxId()
     {
         return ( (Tramite::count('*') == null || Tramite::count('*')== '') ? 1 : Tramite::count('*')+1);
@@ -51,6 +66,18 @@ trait TramiteTrait
 
         $this->validate($request,$regla,$mensaje);
 
+        $usuario = User::select('id','area_id')->where('id',Auth::user()->id)->first();
+        $area = Area::select('id','nombre')->where('id',$usuario->area_id)->first();
+
+        $user_id = Auth::user()->id;
+        $personal_id = null;
+
+        if($area->nombre =='OFICINA MESA DE PARTES')
+        {
+            $user_id = $request->usuario;
+            $personal_id =  Auth::user()->id;
+        }
+
         $tramite_count = Tramite::where('user_id',Auth::user()->id)
                     ->whereNotIn('estado_tramite_id',[5,7])
                     ->count('id');
@@ -65,13 +92,13 @@ trait TramiteTrait
             $tramite->numero_folios = $request->numero_folios;
             $tramite->asunto = $request->asunto;
             $tramite->fecha_hora = $request->fecha_hora;
-            $tramite->user_id = Auth::user()->id;
+            $tramite->user_id = $user_id;
+            $tramite->personal_id = $personal_id;
             $tramite->estado_tramite_id = 1;
             $tramite->save();
 
             //Guardamos el Archivo
             $documento = $request->file('archivo');
-
             $persona = Persona::findOrFail(Auth::user()->id);
 
             $ruta = $persona->numero_documento.'/archivos'.'/'.$tramite->codigo_tramite.'.'.$documento->getClientOriginalExtension();

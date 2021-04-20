@@ -12,7 +12,7 @@ use App\Models\User;
 use App\Models\Cargo;
 use App\Models\Role;
 
-use Auth;
+use Illuminate\Support\Facades\Auth;
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -56,22 +56,5 @@ class AppServiceProvider extends ServiceProvider
             $vista->with('tipoDocumentos',$tipoDocumentos)->with('usuario',$usuario)
                     ->with('sexos',$sexos)->with('cargos',$cargos)->with('roles',$roles);
         });
-
-        // View()->composer('sistema.usuario.editarDatoPersonal',function($vista)
-        // {
-        //     $usuario = Auth::user();
-
-        //     $tipoDocumentos = TipoDocumento::select('id','nombre')->get();
-
-        //     $sexos = User::listarSexo();
-
-        //     $cargos = Cargo::select('id','nombre')->get();
-
-        //     $roles = Role::select('id','nombre')->get();
-
-        //     $vista->with('tipoDocumentos',$tipoDocumentos)->with('usuario',$usuario)
-        //             ->with('sexos',$sexos)->with('cargos',$cargos)->with('roles',$roles);
-        // });
-
     }
 }
