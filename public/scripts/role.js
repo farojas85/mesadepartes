@@ -1,14 +1,29 @@
 function cambiarPaginaRole(pagina)
 {
+    paginas = pagina
     $.ajax({
         //busqueda=
-        url: 'roles-'+filtro+'?page='+pagina,
+        url: 'roles-todos'+'?page='+paginas+'&paginacion='+paginacion,
         type:"GET",
         success: function (respuesta) {
             $('#detalle-tabla').html(respuesta)
         }
     });
 }
+
+function cambiarPaginacionRole()
+{
+    paginacion = $('#role-paginacion').val()
+    $.ajax({
+        //busqueda=
+        url: 'roles-todos'+'?page='+paginas+'&paginacion='+paginacion,
+        type:"GET",
+        success: function (respuesta) {
+            $('#detalle-tabla').html(respuesta)
+        }
+    });
+}
+
 function mostrarFiltroRole(filtro)
 {
     switch(filtro)

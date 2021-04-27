@@ -51,13 +51,14 @@
     <ul class="pagination">
         @if($permisos->currentPage() > 1)
         <li class="page-item">
-            <a href="#" aria-label="Previous" class="page-link btn">
+            <a class="page-link btn" aria-label="First"
+            onclick="cambiarPaginaPermiso(1)">
                 <span><i class="fas fa-fast-backward"></i></span>
             </a>
         </li>
         @endif
         @for ($i = 1; $i <=$permisos->lastPage() ; $i++)
-        <li class="page-item">
+        <li class="page-item @if($i==$permisos->currentPage()) active @endif">
             <a class="page-link btn" onclick="cambiarPaginaPermiso({{ $i }})">{{ $i }}</a>
         </li>
         @endfor
@@ -70,5 +71,5 @@
         </li>
         @endif
     </ul>
-    {{-- {{ $permisos->links() }} --}}
+    {{-- {{ $roles->links() }} --}}
 </div>

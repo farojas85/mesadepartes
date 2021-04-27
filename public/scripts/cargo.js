@@ -268,5 +268,3 @@ function restaurarCargo(cargo)
         }
     })
 }
-
-

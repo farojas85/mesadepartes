@@ -14,9 +14,23 @@ function nuevoUsuario()
 
 function cambiarPaginaUsuario(pagina)
 {
+    paginas = pagina
     $.ajax({
         //busqueda=
-        url: 'usuarios-'+filtro+'?page='+pagina,
+        url: 'usuarios-todos'+'?page='+paginas+'&paginacion='+paginacion,
+        type:"GET",
+        success: function (respuesta) {
+            $('#detalle-tabla').html(respuesta)
+        }
+    });
+}
+
+function cambiarPaginacionUsuario()
+{
+    paginacion = $('#usuario-paginacion').val()
+    $.ajax({
+        //busqueda=
+        url: 'usuarios-todos'+'?page='+paginas+'&paginacion='+paginacion,
         type:"GET",
         success: function (respuesta) {
             $('#detalle-tabla').html(respuesta)

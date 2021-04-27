@@ -9,12 +9,12 @@ function cambiarVista(vista)
 {
     window.tituloVista = vista
     $.ajax({
-        url: vista,
+        url: vista+'?paginacion='+paginacion,
         type:"GET",
         success: function (respuesta) {
             $('#tab-content').html(respuesta)
             filtro = 'habilitados'
-            paginacion = 5
+            //paginacion = 5
         }
     });
 }

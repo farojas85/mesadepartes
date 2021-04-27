@@ -117,7 +117,7 @@
                             </li>
                             @endif
                         </ul>
-                        {{-- {{ $permisos->links() }} --}}
+                        {{-- {{ $roles->links() }} --}}
                     </div>
                 </div>
                 <div class="row">

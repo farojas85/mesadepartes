@@ -58,16 +58,25 @@
     <ul class="pagination">
         @if($usuarios->currentPage() > 1)
         <li class="page-item">
-            <a href="#" aria-label="Previous" class="page-link btn">
+            <a class="page-link btn" aria-label="First"
+            onclick="cambiarPaginaUsuario(1)">
                 <span><i class="fas fa-fast-backward"></i></span>
             </a>
         </li>
         @endif
         @for ($i = 1; $i <=$usuarios->lastPage() ; $i++)
-        <li class="page-item">
+        <li class="page-item @if($i==$usuarios->currentPage()) active @endif">
             <a class="page-link btn" onclick="cambiarPaginaUsuario({{ $i }})">{{ $i }}</a>
         </li>
         @endfor
+        @if($usuarios->currentPage() < $usuarios->lastPage() )
+        <li class="page-item ">
+            <a class="page-link btn" aria-label="First"
+            onclick="cambiarPaginaUsuario({{ $usuarios->lastPage() }})">
+                <span><i class="fas fa-fast-forward"></i></span>
+            </a>
+        </li>
+        @endif
     </ul>
     {{-- {{ $roles->links() }} --}}
 </div>

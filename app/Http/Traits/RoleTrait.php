@@ -31,7 +31,7 @@ trait RoleTrait
                 )->where( function($query) use($buscar){
                     $query->where(DB::Raw('upper(nombre)'),'like','%'.$buscar.'%')
                         ->orWhere(DB::Raw('upper(directriz)'),'like','%'.$buscar.'%');
-                })->paginate(5);
+                })->paginate($request->paginacion);
 
     }
 
@@ -54,7 +54,7 @@ trait RoleTrait
                 )->where( function($query) use($buscar){
                     $query->where(DB::Raw('upper(nombre)'),'like','%'.$buscar.'%')
                         ->orWhere(DB::Raw('upper(directriz)'),'like','%'.$buscar.'%');
-                })->onlyTrashed()->paginate(5);
+                })->onlyTrashed()->paginate($request->paginacion);
 
     }
 
@@ -77,7 +77,7 @@ trait RoleTrait
                 )->where( function($query) use($buscar){
                     $query->where(DB::Raw('upper(nombre)'),'like','%'.$buscar.'%')
                         ->orWhere(DB::Raw('upper(directriz)'),'like','%'.$buscar.'%');
-                })->withTrashed()->paginate(5);
+                })->withTrashed()->paginate($request->paginacion);
 
     }
 }
