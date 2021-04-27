@@ -9,6 +9,21 @@ Route::get('roles-eliminados','RoleController@eliminados')->name('roles.eliminad
 Route::get('roles-todos','RoleController@todos')->name('roles.todos');
 Route::post('roles-restaurar','RoleController@restaurar')->name('roles.restaurar');
 
+//RUTAS PERMISOS
+Route::post('permisos-delete/{permiso}','PermisoController@destroyTemporal')->name('permisos.delete-temp');
+Route::get('permisos-habilitados','PermisoController@habilitados')->name('permisos.habilitados');
+Route::get('permisos-eliminados','PermisoController@eliminados')->name('permisos.eliminados');
+Route::get('permisos-todos','PermisoController@todos')->name('permisos.todos');
+Route::post('permisos-restaurar','PermisoController@restaurar')->name('permisos.restaurar');
+
+//RUTAS DE MENUS
+
+Route::get('menu-lista-padres','MenuController@listarPadres')->name('menu-listar-padres');
+Route::get('menus-habilitados','MenuController@habilitados')->name('menus.habilitados');
+Route::get('menus-eliminados','MenuController@eliminados')->name('menus.eliminados');
+Route::get('menus-todos','MenuController@todos')->name('menus.todos');
+Route::post('menus-restaurar','MenuController@restaurar')->name('menus.restaurar');
+
 //Rutas TIpo Documentos
 Route::get('tipo-documentos-listado','TipoDocumentoController@listado')->name('tipo-documentos.listado');
 
@@ -60,3 +75,5 @@ Route::get('documento-tramites-listar','DocumentoTramiteController@listar')->nam
 //RUTAS TIPO TRAMITES
 Route::get('tipo-tramite-listar','TramiteController@obtenerTipoTramitePorDocumentoTramite')->name('tipo-tramite.listar');
 Route::get('tipo-tramite-todos','TipoTramiteController@todos')->name('tipo-tramite.todos');
+
+

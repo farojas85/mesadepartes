@@ -47,7 +47,7 @@ class Menu extends Model
             return Menu::whereHas('roles', function ($query) {
                 $role_id = Auth::user()->role_id;
                 $query->where('role_id',$role_id)->orderby('padre_id');
-            })->whereNull('padre_id')->orderby('orden')->get()->toArray();
+            })->where('estado',1)->whereNull('padre_id')->orderby('orden')->get()->toArray();
         } else {
             return Menu::orderby('padre_id')->orderby('orden')->get()->toArray();
         }
@@ -60,7 +60,7 @@ class Menu extends Model
             $hijos = Menu::whereHas('roles', function ($query) {
                         $role_id = Auth::user()->role_id;
                         $query->where('role_id',$role_id)->orderby('padre_id');
-                    })->where('padre_id',$line1['id'])->orderby('orden')->get()->toArray();
+                    })->where('estado',1)->where('padre_id',$line1['id'])->orderby('orden')->get()->toArray();
 
             $children = array_merge($children, [array_merge($line1, ['submenu' => $hijos ])]);
         }

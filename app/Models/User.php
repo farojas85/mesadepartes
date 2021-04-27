@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Http\Traits\TienePermisoTrait;
+use App\Http\Traits\TieneRoleTrait;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -12,7 +14,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable, SoftDeletes;
+    use HasFactory, Notifiable, SoftDeletes, TieneRoleTrait;
 
     /**
      * The attributes that are mass assignable.

@@ -2,74 +2,65 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Role;
+use App\Models\Permiso;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Http\Traits\RoleTrait;
 
-class RoleController extends Controller
+use App\Http\Traits\PermisoTrait;
+
+class PermisoController extends Controller
 {
-    use RoleTrait;
+    use PermisoTrait;
 
     public function __construct()
     {
-        $this->tituloVista = 'Roles';
+        $this->tituloVista = 'Permisos';
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index(Request $request)
     {
-        $roles = $this->obtenerHabilitados($request);
+        $permisos = $this->obtenerHabilitados($request);
 
-        return view("sistema.role.inicio",[
+        return view("sistema.permiso.inicio",[
             'tituloVista'=> $this->tituloVista,
-            'roles' => $roles
+            'permisos' => $permisos
         ]);
     }
 
     public function habilitados(Request $request)
     {
-        $roles = $this->obtenerHabilitados($request);
+        $permisos = $this->obtenerHabilitados($request);
 
-        return view("sistema.role.tabla",[
+        return view("sistema.permiso.tabla",[
             'tituloVista'=> $this->tituloVista,
-            'roles' => $roles
+            'permisos' => $permisos
         ]);
     }
 
     public function eliminados(Request $request)
     {
-        $roles = $this->obtenerEliminados($request);
+        $permisos = $this->obtenerEliminados($request);
 
-        return view("sistema.role.tabla",[
+        return view("sistema.permiso.tabla",[
                 'tituloVista'=> $this->tituloVista,
-                'roles' => $roles
+                'permisos' => $permisos
         ]);
     }
 
     public function todos(Request $request)
     {
-        $roles = $this->obtenerTodos($request);
+        $permisos = $this->obtenerTodos($request);
 
-        return view("sistema.role.tabla",[
+        return view("sistema.permiso.tabla",[
                 'tituloVista'=> $this->tituloVista,
-                'roles' => $roles
+                'permisos' => $permisos
         ]);
     }
 
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         $estadoCrud='nuevo';
-        return view('sistema.role.create',compact('estadoCrud'));
+        return view('sistema.permiso.create',compact('estadoCrud'));
     }
 
     /**
@@ -82,32 +73,33 @@ class RoleController extends Controller
     {
         $reglas = [
             'nombre' => 'required',
-            'directriz' => 'required'
+            'directriz' => 'required',
+            'descripcion' => 'required'
         ];
 
         $mensaje = ['required' => '* Campo Obligatorio'];
 
         $this->validate($request,$reglas,$mensaje);
 
-        $role = Role::create([
+        $permiso = Permiso::create([
             'nombre' => $request->nombre,
             'directriz' => $request->directriz,
+            'descripcion' => $request->descripcion
         ]);
 
         return response()->json([
             'ok' => 1,
-            'mensaje' => 'Rol Registrado Satisfactoriamente'
+            'mensaje' => 'Permiso Registrado Satisfactoriamente'
         ], 200);
-
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Role  $role
+     * @param  \App\Models\Permiso  $permiso
      * @return \Illuminate\Http\Response
      */
-    public function show(Role $role)
+    public function show(Permiso $permiso)
     {
         //
     }
@@ -115,76 +107,77 @@ class RoleController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Role  $role
+     * @param  \App\Models\Permiso  $permiso
      * @return \Illuminate\Http\Response
      */
-    public function edit(Role $role)
+    public function edit(Permiso $permiso)
     {
         $estadoCrud = 'editar';
-        return view('sistema.role.edit',compact('role','estadoCrud'));
+        return view('sistema.permiso.edit',compact('permiso','estadoCrud'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Role  $role
+     * @param  \App\Models\Permiso  $permiso
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Role $role)
+    public function update(Request $request, Permiso $permiso)
     {
         $reglas = [
             'nombre' => 'required',
-            'directriz' => 'required'
+            'directriz' => 'required',
+            'descripcion' => 'required'
         ];
 
         $mensaje = ['required' => '* Campo Obligatorio'];
 
-        $role->nombre =  $request->nombre;
-        $role->directriz = $request->directriz;
-        $role->estado = ($request->estado) ? 1 : 0;
-        $role->save();
+        $permiso->nombre =  $request->nombre;
+        $permiso->directriz = $request->directriz;
+        $permiso->descripcion = $request->descripcion;
+        $permiso->save();
 
         return response()->json([
             'ok' => 1,
-            'mensaje' => 'Rol Modificado Satisfactoriamente'
+            'mensaje' => 'Permiso Modificado Satisfactoriamente'
         ], 200);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Role  $role
+     * @param  \App\Models\Permiso  $permiso
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Role $role)
+    public function destroy(Permiso $permiso)
     {
-        $role->forceDelete();
+        $permiso->forceDelete();
 
         return response()->json([
             'ok' => 1,
-            'mensaje' => 'Rol eliminado permanentemente'
+            'mensaje' => 'Permiso eliminado permanentemente'
         ], 200);
     }
 
-    public function destroyTemporal(Role $role)
+    public function destroyTemporal(Permiso $permiso)
     {
-        $role->delete();
+        $permiso->delete();
 
         return response()->json([
             'ok' => 1,
-            'mensaje' => 'Rol Enviado a Papelera Satisfactoriamente'
+            'mensaje' => 'Permiso Enviado a Papelera Satisfactoriamente'
         ], 200);
     }
 
     public function restaurar(Request $request)
     {
-        $role = Role::onlyTrashed()->where('id',$request->id);
-        $role->restore();
+        $permiso = Permiso::onlyTrashed()->where('id',$request->id);
+        $permiso->restore();
 
         return response()->json([
             'ok' => 1,
-            'mensaje' => 'Rol Restaurado Satisfactoriamente'
+            'mensaje' => 'Permiso Restaurado Satisfactoriamente'
         ], 200);
     }
 }

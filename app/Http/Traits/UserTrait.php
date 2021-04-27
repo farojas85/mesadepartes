@@ -47,7 +47,7 @@ trait UserTrait
                         ->orWhere(DB::Raw("concat(upper(pe.apellido_paterno),' ',upper(pe.apellido_materno))"),'like','%'.$buscar.'%')
                         ->orWhere(DB::Raw('upper(ca.nombre)'),'like','%'.$buscar.'%')
                         ->orWhere(DB::Raw("upper(ro.nombre)"),'like','%'.$buscar.'%');
-                })->paginate(5);
+                })->paginate($request->paginacion);
 
                 // $buscar = $this->convertirMayuscula($request);
                 // return Cargo::select('id','nombre')
@@ -81,7 +81,7 @@ trait UserTrait
                         ->orWhere(DB::Raw("concat(upper(pe.apellido_paterno),' ',upper(pe.apellido_materno))"),'like','%'.$buscar.'%')
                         ->orWhere(DB::Raw('upper(ca.nombre)'),'like','%'.$buscar.'%')
                         ->orWhere(DB::Raw("upper(ro.nombre)"),'like','%'.$buscar.'%');
-                })->withTrashed()->paginate(5);
+                })->withTrashed()->paginate($request->paginacion);
 
     }
 
@@ -111,7 +111,7 @@ trait UserTrait
                         ->orWhere(DB::Raw("concat(upper(pe.apellido_paterno),' ',upper(pe.apellido_materno))"),'like','%'.$buscar.'%')
                         ->orWhere(DB::Raw('upper(ca.nombre)'),'like','%'.$buscar.'%')
                         ->orWhere(DB::Raw("upper(ro.nombre)"),'like','%'.$buscar.'%');
-                })->onlyTrashed()->paginate(5);
+                })->onlyTrashed()->paginate($request->paginacion);
 
     }
 

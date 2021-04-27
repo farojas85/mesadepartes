@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Auth;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 Auth::routes();
@@ -27,13 +27,14 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::resource('roles', 'RoleController');
     Route::resource('usuarios', 'UserController');
+    Route::resource('permisos', 'PermisoController');
+    Route::resource('menus','MenuController');
     Route::resource('cargos', 'CargoController');
     Route::resource('tipodocumentos', 'TipoDocumentoController');
     Route::resource('areas', 'AreaController');
     Route::resource('documento-tramites','DocumentoTramiteController');
     Route::resource('tramite', 'TramiteController');
     Route::resource('tipo-tramite', 'TipoTramiteController');
-
     //Rutas Parciales
     require __DIR__.'/rutasParciales.php';
 });

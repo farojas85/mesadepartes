@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Pagination\Paginator;
@@ -44,7 +45,6 @@ class AppServiceProvider extends ServiceProvider
         View()->composer('sistema.usuario.perfil',function($vista)
         {
             $usuario = Auth::user();
-
             $tipoDocumentos = TipoDocumento::select('id','nombre')->get();
 
             $sexos = User::listarSexo();
@@ -56,5 +56,7 @@ class AppServiceProvider extends ServiceProvider
             $vista->with('tipoDocumentos',$tipoDocumentos)->with('usuario',$usuario)
                     ->with('sexos',$sexos)->with('cargos',$cargos)->with('roles',$roles);
         });
+
+
     }
 }

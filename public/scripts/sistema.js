@@ -14,6 +14,7 @@ function cambiarVista(vista)
         success: function (respuesta) {
             $('#tab-content').html(respuesta)
             filtro = 'habilitados'
+            paginacion = 5
         }
     });
 }
@@ -29,6 +30,18 @@ var script2= document.createElement('script')
 script2.src='scripts/usuario.js'
 
 document.head.appendChild(script2)
+
+var script3= document.createElement('script')
+
+script3.src='scripts/permiso.js'
+
+document.head.appendChild(script3)
+
+var script4= document.createElement('script')
+
+script4.src='scripts/menu.js'
+
+document.head.appendChild(script4)
 
 //-----
 $(function() {

@@ -15,22 +15,74 @@ use App\Models\Movimiento;
 use App\Models\Area;
 use App\Models\User;
 use App\Http\Traits\HelperTrait;
-
+use Illuminate\Database\Eloquent\Builder;
 
 trait TramiteTrait
 {
     use HelperTrait;
+
+    public  $areasAdmin = ['OFICINA MESA DE PARTES' ,'OFICINA DE INFORMATICA','OFICINA DIRECION'];
+
+    public function obtenerAreaUsuario()
+    {
+        $area = Area::select('id','nombre')->where('id',Auth::user()->area_id)->first();
+
+        if(in_array($area->nombre,$this->areasAdmin))
+        {
+            return '%';
+        }
+        return $area->id;
+    }
 
     public function obtenerHabilitados(Request $request)
     {
         $buscar = $this->convertirMayuscula($request);
         $paginacion = (!$request->paginacion) ? 5 : $request->paginacion;
 
+        $area_id = $this->obtenerAreaUsuario();
+
         return Tramite::with([
                     'user.persona:id,nombres,apellido_paterno,apellido_materno',
-                    'tipo_tramite:id,nombre','estado_tramite:id,nombre,clase'
+                    'tipo_tramite:id,nombre','estado_tramite:id,nombre,clase',
                 ])
+                ->whereHas('movimientos',function(Builder $query) use($area_id){
+                    $query->where('area_destino','like',$area_id);
+                })
                 ->paginate($paginacion);
+    }
+
+    public function obtenerTodos(Request $request)
+    {
+        $buscar = $this->convertirMayuscula($request);
+        $paginacion = (!$request->paginacion) ? 5 : $request->paginacion;
+
+        $area_id = $this->obtenerAreaUsuario();
+
+        return Tramite::with([
+                    'user.persona:id,nombres,apellido_paterno,apellido_materno',
+                    'tipo_tramite:id,nombre','estado_tramite:id,nombre,clase',
+                ])
+                ->whereHas('movimientos',function(Builder $query) use($area_id){
+                    $query->where('area_destino','like',$area_id);
+                })
+                ->withTrashed()->paginate($paginacion);
+    }
+
+    public function obtenerEliminados(Request $request)
+    {
+        $buscar = $this->convertirMayuscula($request);
+        $paginacion = (!$request->paginacion) ? 5 : $request->paginacion;
+
+        $area_id = $this->obtenerAreaUsuario();
+
+        return Tramite::with([
+                    'user.persona:id,nombres,apellido_paterno,apellido_materno',
+                    'tipo_tramite:id,nombre','estado_tramite:id,nombre,clase',
+                ])
+                ->whereHas('movimientos',function(Builder $query) use($area_id){
+                    $query->where('area_destino','like',$area_id);
+                })
+                ->onlyTrashed()->paginate($paginacion);
     }
 
     public function obtenerMaxId()

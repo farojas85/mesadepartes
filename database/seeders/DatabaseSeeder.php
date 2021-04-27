@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
             DocumentoTramiteSeeder::class,
             EstadoTramiteSeeder::class,
             TipoArchivoSeeder::class,
+            PermisoSeeder::class
         ]);
     }
 }

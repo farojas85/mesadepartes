@@ -23,14 +23,30 @@
     <div class="col-md-12 mb-2">
         <div class="card card-primary card-outline">
             <div class="card-header p-0 pt-1">
+                @puede('roles.inicio')
                 <button type="button" class="btn btn-app bg-primary"
                     onclick="cambiarVista('roles')">
                     <i class="fas fa-user-tag"></i> Roles
                 </button>
+                @endpuede
+                @puede('usuarios.inicio')
                 <button type="button" class="btn btn-app bg-primary"
                     onclick="cambiarVista('usuarios')">
                     <i class="fas fa-users"></i> Usuarios
                 </button>
+                @endpuede
+                @puede('permisos.inicio')
+                <button type="button" class="btn btn-app bg-primary"
+                    onclick="cambiarVista('permisos')">
+                    <i class="fas fa-users"></i> Permisos
+                </button>
+                @endpuede
+                @puede('menus.inicio')
+                <button type="button" class="btn btn-app bg-primary"
+                    onclick="cambiarVista('menus')">
+                    <i class="fas fa-users"></i> Men&uacute;s
+                </button>
+                @endpuede
             </div>
             <div class="card-body">
                 <div class="tab-content" id="tab-content">
