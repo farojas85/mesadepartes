@@ -43,10 +43,16 @@ script4.src='scripts/menu.js'
 
 document.head.appendChild(script4)
 
+var script5= document.createElement('script')
+
+script5.src='scripts/menu-role.js'
+
+document.head.appendChild(script5)
+
 //-----
 $(function() {
     $.ajax({
-        url: 'roles?buscar=',
+        url: 'roles?paginacion='+paginacion+'&buscar=',
         type:"GET",
         success: function (respuesta) {
             $('#tab-content').html(respuesta)

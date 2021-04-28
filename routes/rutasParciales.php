@@ -24,6 +24,9 @@ Route::get('menus-eliminados','MenuController@eliminados')->name('menus.eliminad
 Route::get('menus-todos','MenuController@todos')->name('menus.todos');
 Route::post('menus-restaurar','MenuController@restaurar')->name('menus.restaurar');
 
+//RUTAS DE MENÚS ROLES
+Route::get('menu-role-obtener-menu-role','MenuRoleController@obtenerMenuRole')->name('menu-role.obtener-menu-role');
+
 //Rutas TIpo Documentos
 Route::get('tipo-documentos-listado','TipoDocumentoController@listado')->name('tipo-documentos.listado');
 

@@ -47,6 +47,12 @@
                     <i class="fas fa-users"></i> Men&uacute;s
                 </button>
                 @endpuede
+                @puede('menu-role.inicio')
+                <button type="button" class="btn btn-app bg-primary"
+                    onclick="cambiarVista('menu-role')">
+                    <i class="fas fa-users"></i> Men&uacute;s / Roles
+                </button>
+                @endpuede
             </div>
             <div class="card-body">
                 <div class="tab-content" id="tab-content">

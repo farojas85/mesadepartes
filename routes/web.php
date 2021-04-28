@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MenuRoleController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 /*
@@ -35,6 +36,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('documento-tramites','DocumentoTramiteController');
     Route::resource('tramite', 'TramiteController');
     Route::resource('tipo-tramite', 'TipoTramiteController');
+    Route::resource('menu-role', 'MenuRoleController');
+
     //Rutas Parciales
     require __DIR__.'/rutasParciales.php';
 });

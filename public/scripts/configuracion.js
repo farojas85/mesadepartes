@@ -52,7 +52,7 @@ document.head.appendChild(script2)
 
 $(function() {
     $.ajax({
-        url: 'areas?buscar=',
+        url: 'areas?paginacion='+paginacion+'&buscar=',
         type:"GET",
         success: function (respuesta) {
             $('#tab-content').html(respuesta)
