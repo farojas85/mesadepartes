@@ -118,10 +118,35 @@ class PermisoSeeder extends Seeder
         ])
         ;
 
+        $permiso25 = Permiso::firstOrCreate([
+            'nombre' => 'Vista Trámite','directriz' => 'tramites.inicio','descripcion' => 'Vista Inicio Trámite'
+        ])
+        ;
+        $permiso26 = Permiso::firstOrCreate([
+            'nombre' => 'Crear Trámite','directriz' => 'tramites.crear','descripcion' => 'Añadir Nuevo Trámite'
+        ])
+        ;
+        $permiso27 = Permiso::firstOrCreate([
+            'nombre' => 'Editar Trámite','directriz' => 'tramites.editar','descripcion' => 'Editar Datos de Trámite Seleccionado'
+        ])
+        ;
+        $permiso28 = Permiso::firstOrCreate([
+            'nombre' => 'Eliminar Trámite','directriz' => 'tramites.eliminar','descripcion' => 'Eliminar Registro de Trámite Seleccionado'
+        ])
+        ;
+        $permiso29 = Permiso::firstOrCreate([
+            'nombre' => 'Restaurar Trámite','directriz' => 'tramites.restaurar','descripcion' => 'Restaurar Registro de Trámite Seleccionado'
+        ])
+        ;
+        $permiso30 = Permiso::firstOrCreate([
+            'nombre' => 'Trámite Movimientos','directriz' => 'tramites.movimientos','descripcion' => 'Ver Movimientos del Trámite Seleccionado'
+        ])
+        ;
+
         $role1->permisos()->sync([
             $permiso1->id, $permiso2->id,$permiso3->id,$permiso4->id,$permiso5->id,$permiso6->id,$permiso7->id,$permiso8->id,$permiso9->id,$permiso10->id,
             $permiso11->id, $permiso12->id,$permiso13->id,$permiso14->id,$permiso15->id,$permiso16->id,$permiso17->id,$permiso18->id,$permiso19->id,$permiso20->id,
-            $permiso21->id, $permiso22->id,$permiso23->id,$permiso24->id
+            $permiso21->id, $permiso22->id,$permiso23->id,$permiso24->id,$permiso25->id,$permiso26->id,$permiso27->id,$permiso28->id,$permiso29->id,$permiso30->id
         ]);
     }
 }

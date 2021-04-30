@@ -49,6 +49,12 @@ script5.src='scripts/menu-role.js'
 
 document.head.appendChild(script5)
 
+var script6= document.createElement('script')
+
+script6.src='scripts/permiso-role.js'
+
+document.head.appendChild(script6)
+
 //-----
 $(function() {
     $.ajax({

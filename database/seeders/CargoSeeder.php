@@ -14,5 +14,6 @@ class CargoSeeder extends Seeder
     public function run()
     {
         $cargo = Cargo::firstOrCreate(['nombre' => 'DIRECTOR DE SISTEMA ADMINISTRATIVO']);
+
     }
 }

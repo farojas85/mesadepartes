@@ -9,7 +9,7 @@ use App\Models\Persona;
 use App\Models\Role;
 use App\Models\Cargo;
 use App\Models\TipoDocumento;
-class UsuarioMasterSeeeder extends Seeder
+class UsuarioMasterSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -24,19 +24,19 @@ class UsuarioMasterSeeeder extends Seeder
 
         $persona = Persona::firstOrCreate([
             'tipodocumento_id' => $tipodoc->id,
-            'numero_documento' => '10000001',
-            'nombres' => 'Admin',
-            'apellido_paterno' => 'Master',
-            'apellido_materno' => 'Master',
-            'correo_personal' => 'admin@me.com',
+            'numero_documento' => '73984764',
+            'nombres' => 'BILL KENEDIN',
+            'apellido_paterno' => 'VASQUEZ',
+            'apellido_materno' => 'FIRMA',
+            'correo_personal' => 'bill.vasquez.by@gmail.com',
             'sexo' => 'M'
         ]);
 
         $user = User::firstOrCreate([
             'persona_id' => $persona->id,
-            'usuario_codigo' => '10000001',
-            'usuario_email' => 'admin@me.com',
-            'password' =>  Hash::make('10000001'),
+            'usuario_codigo' => '73984764',
+            'usuario_email' => 'bill.vasquez.by@gmail.com',
+            'password' =>  Hash::make('73984764'),
             'cargo_id' => $cargo->id,
             'role_id' => $rol->id,
             'foto' => 'user_varon.png',

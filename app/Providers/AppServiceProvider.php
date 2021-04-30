@@ -12,8 +12,10 @@ use App\Models\TipoDocumento;
 use App\Models\User;
 use App\Models\Cargo;
 use App\Models\Role;
+use App\Models\Tramite;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\Builder;
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -57,6 +59,28 @@ class AppServiceProvider extends ServiceProvider
                     ->with('sexos',$sexos)->with('cargos',$cargos)->with('roles',$roles);
         });
 
+        view()->composer('home', function($vista){
+            $usuario = User::with(['role:id,nombre,directriz','cargo:id,nombre','area:id,nombre'])
+                            ->where('id',Auth::user()->id)->first();
+
+            $tramites_pendientes = 0;
+            if($usuario->role->directriz == 'super-usuario' || $usuario->role->directriz == 'administrador'
+                || $usuario->area->nombre == 'OFICINA MESA DE PARTES')
+            {
+                $tramites_pendientes = Tramite::whereHas('estado_tramite',function(Builder $query){
+                                                $query->where('nombre','Generado');
+                                            })->count();
+            } else {
+                $area_usuario = $usuario->area->nombre;
+                $tramites_pendientes = Tramite::whereHas('estado_tramite',function(Builder $query){
+                                            $query->where('nombre','Generado');
+                                        })->whereHas('user.area',function(Builder $query) use($area_usuario){
+                                            $query->where('nombre',$area_usuario);
+                                        })->count();
+            }
+
+            $vista->with('tramites_pendientes',$tramites_pendientes);
+        });
 
     }
 }

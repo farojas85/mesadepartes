@@ -37,6 +37,13 @@ class MenuSeeder extends Seeder
             'orden' => 3
         ]);
 
+        $menu4 = Menu::firstOrCreate([
+            'nombre' => 'Reporte',
+            'enlace' => 'reporte',
+            'imagen' => 'as fa-file-prescription',
+            'orden' => 4
+        ]);
+
         $role = Role::where('directriz','super-usuario')->first();
 
         $role->menus()->sync([$menu1->id,$menu2->id,$menu3->id,$menu4->id]);

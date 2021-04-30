@@ -1,11 +1,15 @@
 @extends('layouts.authenticate')
 
 @section('contenido')
+<div class="clearfix"></div>
 <div class="login-box">
     <!-- /.login-logo -->
     <div class="card card-outline card-primary">
       <div class="card-header text-center">
-        <a href="adminlte/index2.html" class="h3"><b>Tr&aacute;mite</b>Documentario</a>
+        <a href="login" class="h3">
+            <b>Tr&aacute;mite</b>Documentario<br>
+            <img src="{{ asset('images/ugel302.png') }}" width="128">
+        </a>
       </div>
       <div class="card-body">
         <p class="login-box-msg">Iniciar Sesi&oacute;n</p>

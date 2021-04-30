@@ -76,8 +76,8 @@ class Tramite extends Model
         {
             return 'E'.$anio.'-'.str_pad(1,9,"0",STR_PAD_LEFT);
         }
+        $maximo =(int) substr($maxId->codigo_tramite,6);
 
-        $maxId->codigo_tramite +=1;
-        return $maxId->codigo_tramite;
+        return 'E'.$anio.'-'.str_pad($maximo+1,9,"0",STR_PAD_LEFT);
     }
 }

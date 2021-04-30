@@ -25,6 +25,9 @@ Route::get('menus-todos','MenuController@todos')->name('menus.todos');
 Route::post('menus-restaurar','MenuController@restaurar')->name('menus.restaurar');
 
 //RUTAS DE MENÚS ROLES
+Route::get('permiso-role-obtener-permiso-role','PermisoRoleController@obtenerPermisoRole')->name('permiso-role.obtener-permiso-role');
+
+//RUTAS DE PERMISOS ROLES
 Route::get('menu-role-obtener-menu-role','MenuRoleController@obtenerMenuRole')->name('menu-role.obtener-menu-role');
 
 //Rutas TIpo Documentos

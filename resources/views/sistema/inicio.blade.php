@@ -41,6 +41,12 @@
                     <i class="fas fa-users"></i> Permisos
                 </button>
                 @endpuede
+                @puede('permiso-role.inicio')
+                <button type="button" class="btn btn-app bg-primary"
+                    onclick="cambiarVista('permiso-role')">
+                    <i class="fas fa-users"></i> Permisos / Roles
+                </button>
+                @endpuede
                 @puede('menus.inicio')
                 <button type="button" class="btn btn-app bg-primary"
                     onclick="cambiarVista('menus')">

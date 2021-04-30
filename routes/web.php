@@ -37,6 +37,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('tramite', 'TramiteController');
     Route::resource('tipo-tramite', 'TipoTramiteController');
     Route::resource('menu-role', 'MenuRoleController');
+    Route::resource('permiso-role', 'PermisoRoleController');
+
 
     //Rutas Parciales
     require __DIR__.'/rutasParciales.php';

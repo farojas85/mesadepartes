@@ -30,13 +30,15 @@
     <div class="col-md-12 mb-2">
         <div class="card card-primary card-outline">
             <div class="card-header p-0 pt-1">
+                @puede('tramites.crear')
                 <button type="button" class="btn btn-app bg-danger" onclick="nuevoTramite()">
                     <i class="fas fa-plus"></i> Nuevo Tr&aacute;mite
                 </button>
-                <button type="button" class="btn btn-app bg-primary"
+                @endpuede
+                {{-- <button type="button" class="btn btn-app bg-primary"
                     onclick="cambiarVista('usuarios')">
                     <i class="fas fa-users"></i> Usuarios
-                </button>
+                </button> --}}
             </div>
             <div class="card-body">
                 <div class="tab-content" id="tab-content">
@@ -106,9 +108,40 @@
                                                         <td class="text-center">
                                                             <span class="{{ $tramite->estado_tramite->clase }}">{{ $tramite->estado_tramite->nombre }}</span>
                                                         </td>
+                                                        <td>
+                                                            @if($tramite->deleted_at == null)
+                                                            @puede('tramites.movimientos')
+                                                            <button type="button" class="btn bg-blue btn-xs btn-editar-tramite"
+                                                                onclick="movimientosTramite({{ $tramite->id }})" title="Ver Movimientos Trámites">
+                                                                <i class="fas fa-map-signs"></i>
+                                                            </button>
+                                                            @endpuede
+                                                            @puede('tramites.editar')
+                                                            <button type="button" class="btn btn-warning btn-xs btn-editar-tramite"
+                                                                onclick="editarTramite({{ $tramite->id }})" title="Editar Trámite">
+                                                                <i class="fas fa-edit"></i>
+                                                            </button>
+                                                            @endpuede
+                                                            @puede('tramites.eliminar')
+                                                            <button type="button" class="btn btn-danger btn-xs btn-eliminar-tramite"
+                                                                onclick="eliminarTramite({{ $tramite->id }})" title="Eliminar Trámite">
+                                                                <i class="fas fa-trash"></i>
+                                                            </button>
+                                                            @endpuede
+                                                            @else
+                                                            @puede('tramites.restaurar')
+                                                            <button type="button" class="btn bg-purple btn-xs btn-restaurar-tramite"
+                                                                onclick="restaurarTramite({{ $tramite->id }})" title="Restaurar Trámite">
+                                                                <i class="fas fa-trash-restore-alt"></i>
+                                                            </button>
+                                                            @endpuede
+                                                            @endif
+                                                        </td>
                                                     </tr>
                                                     @empty
-
+                                                    <tr>
+                                                        <td colspan="7" class="text-danger text-center">-Tr&aacute;mites No Registrados-</td>
+                                                    </tr>
                                                     @endforelse
                                                 </tbody>
                                             </table>

@@ -34,6 +34,20 @@ trait TramiteTrait
         return $area->id;
     }
 
+    public function obtenerUsuarioId()
+    {
+        $usuario = User::with(['role:id,nombre,directriz','cargo:id,nombre','area:id,nombre'])
+                            ->where('id',Auth::user()->id)->first();
+
+
+            if($usuario->role->directriz == 'super-usuario' || $usuario->role->directriz == 'administrador'
+                || $usuario->area->nombre == 'OFICINA MESA DE PARTES')
+            {
+                return '%';
+            }
+            return $usuario->id;
+    }
+
     public function obtenerHabilitados(Request $request)
     {
         $buscar = $this->convertirMayuscula($request);
@@ -45,9 +59,7 @@ trait TramiteTrait
                     'user.persona:id,nombres,apellido_paterno,apellido_materno',
                     'tipo_tramite:id,nombre','estado_tramite:id,nombre,clase',
                 ])
-                ->whereHas('movimientos',function(Builder $query) use($area_id){
-                    $query->where('area_destino','like',$area_id);
-                })
+                ->where('user_id','like',$this->obtenerUsuarioId())
                 ->paginate($paginacion);
     }
 
@@ -62,9 +74,7 @@ trait TramiteTrait
                     'user.persona:id,nombres,apellido_paterno,apellido_materno',
                     'tipo_tramite:id,nombre','estado_tramite:id,nombre,clase',
                 ])
-                ->whereHas('movimientos',function(Builder $query) use($area_id){
-                    $query->where('area_destino','like',$area_id);
-                })
+                ->where('user_id','like',$this->obtenerUsuarioId())
                 ->withTrashed()->paginate($paginacion);
     }
 
@@ -79,9 +89,7 @@ trait TramiteTrait
                     'user.persona:id,nombres,apellido_paterno,apellido_materno',
                     'tipo_tramite:id,nombre','estado_tramite:id,nombre,clase',
                 ])
-                ->whereHas('movimientos',function(Builder $query) use($area_id){
-                    $query->where('area_destino','like',$area_id);
-                })
+                ->where('user_id','like',$this->obtenerUsuarioId())
                 ->onlyTrashed()->paginate($paginacion);
     }
 
@@ -124,7 +132,7 @@ trait TramiteTrait
         $user_id = Auth::user()->id;
         $personal_id = null;
 
-        if($area->nombre =='OFICINA MESA DE PARTES')
+        if($area->nombre == 'OFICINA MESA DE PARTES')
         {
             $user_id = $request->usuario;
             $personal_id =  Auth::user()->id;
@@ -151,7 +159,7 @@ trait TramiteTrait
 
             //Guardamos el Archivo
             $documento = $request->file('archivo');
-            $persona = Persona::findOrFail(Auth::user()->id);
+            $persona = Persona::findOrFail(Auth::user()->persona_id);
 
             $ruta = $persona->numero_documento.'/archivos'.'/'.$tramite->codigo_tramite.'.'.$documento->getClientOriginalExtension();
             $nombre_archivo = $tramite->codigo_tramite.'.'.$documento->getClientOriginalExtension();
